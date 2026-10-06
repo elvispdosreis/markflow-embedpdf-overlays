@@ -1,7 +1,7 @@
 {
   "name": "@elvispdosreis/markflow-core",
-  "version": "0.1.0",
-  "description": "Shared runtime for the individual MarkFlow EmbedPDF extensions",
+  "version": "0.2.0",
+  "description": "Shared runtime for the independent MarkFlow EmbedPDF extensions",
   "type": "module",
   "files": [
     "dist",
@@ -21,6 +21,78 @@
     "./vue": {
       "types": "./dist/types/vue.d.ts",
       "import": "./dist/vue.js"
+    },
+    "./zoom": {
+      "types": "./dist/types/extensions/zoom.d.ts",
+      "import": "./dist/extensions/zoom.js"
+    },
+    "./context-menu": {
+      "types": "./dist/types/extensions/context-menu.d.ts",
+      "import": "./dist/extensions/context-menu.js"
+    },
+    "./measurements": {
+      "types": "./dist/types/extensions/measurements.d.ts",
+      "import": "./dist/extensions/measurements.js"
+    },
+    "./calibration": {
+      "types": "./dist/types/extensions/calibration.d.ts",
+      "import": "./dist/extensions/calibration.js"
+    },
+    "./measurement-sidebar": {
+      "types": "./dist/types/extensions/measurement-sidebar.d.ts",
+      "import": "./dist/extensions/measurement-sidebar.js"
+    },
+    "./measurement-style": {
+      "types": "./dist/types/extensions/measurement-style.d.ts",
+      "import": "./dist/extensions/measurement-style.js"
+    },
+    "./technical-comments": {
+      "types": "./dist/types/extensions/technical-comments.d.ts",
+      "import": "./dist/extensions/technical-comments.js"
+    },
+    "./technical-comment-sidebar": {
+      "types": "./dist/types/extensions/technical-comment-sidebar.d.ts",
+      "import": "./dist/extensions/technical-comment-sidebar.js"
+    },
+    "./xfdf": {
+      "types": "./dist/types/extensions/xfdf.d.ts",
+      "import": "./dist/extensions/xfdf.js"
+    },
+    "./document-transfer": {
+      "types": "./dist/types/extensions/document-transfer.d.ts",
+      "import": "./dist/extensions/document-transfer.js"
+    },
+    "./modes": {
+      "types": "./dist/types/extensions/modes.d.ts",
+      "import": "./dist/extensions/modes.js"
+    },
+    "./command-ui": {
+      "types": "./dist/types/extensions/command-ui.d.ts",
+      "import": "./dist/extensions/command-ui.js"
+    },
+    "./crosshair-menu": {
+      "types": "./dist/types/extensions/crosshair-menu.d.ts",
+      "import": "./dist/extensions/crosshair-menu.js"
+    },
+    "./guides-menu": {
+      "types": "./dist/types/extensions/guides-menu.d.ts",
+      "import": "./dist/extensions/guides-menu.js"
+    },
+    "./measurement-menu": {
+      "types": "./dist/types/extensions/measurement-menu.d.ts",
+      "import": "./dist/extensions/measurement-menu.js"
+    },
+    "./technical-comment-menu": {
+      "types": "./dist/types/extensions/technical-comment-menu.d.ts",
+      "import": "./dist/extensions/technical-comment-menu.js"
+    },
+    "./panel-react": {
+      "types": "./dist/types/panel-react.d.ts",
+      "import": "./dist/panel-react.js"
+    },
+    "./panel-vue": {
+      "types": "./dist/types/panel-vue.d.ts",
+      "import": "./dist/panel-vue.js"
     }
   },
   "scripts": {
@@ -29,7 +101,8 @@
     "test": "vitest run --config vitest.config.mjs"
   },
   "dependencies": {
-    "preact": "^10.17.0"
+    "preact": "^10.17.0",
+    "pdf-lib": "1.17.1"
   },
   "devDependencies": {
     "@types/react": "19.3.0",
@@ -52,7 +125,10 @@
     "@embedpdf/plugin-scroll": "2.15.0",
     "@embedpdf/plugin-viewport": "2.15.0",
     "@embedpdf/plugin-zoom": "2.15.0",
-    "@embedpdf/plugin-rotate": "2.15.0"
+    "@embedpdf/plugin-rotate": "2.15.0",
+    "@embedpdf/plugin-annotation": "2.15.0",
+    "@embedpdf/plugin-ui": "2.15.0",
+    "@embedpdf/plugin-history": "2.15.0"
   },
   "peerDependenciesMeta": {
     "react": {

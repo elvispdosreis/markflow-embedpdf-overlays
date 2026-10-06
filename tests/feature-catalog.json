@@ -1,0 +1,184 @@
+[
+  {
+    "kind": "zoom",
+    "title": "Zoom",
+    "main": "mountViewerZoomControls",
+    "panel": null,
+    "modules": [
+      "viewer-extensions/viewer-zoom-controls"
+    ]
+  },
+  {
+    "kind": "context-menu",
+    "title": "Context Menu",
+    "main": "mountViewerContextMenu",
+    "panel": null,
+    "modules": [
+      "viewer-extensions/viewer-context-menu"
+    ]
+  },
+  {
+    "kind": "measurements",
+    "title": "Measurements",
+    "main": "MeasurementCalculator",
+    "panel": null,
+    "modules": [
+      "measurement/measurement-tools",
+      "measurement/measurement-command-definitions",
+      "measurement/measurement-calculator",
+      "measurement/measurement-record",
+      "measurement/measurement-state",
+      "measurement/measurement-history",
+      "measurement/measurement-appearance-controller",
+      "measurement/measurement-events-controller",
+      "measurement/measurement-selection-controller",
+      "measurement/measurement-interaction",
+      "measurement/measurement-highlight-controller",
+      "measurement/measurement-loading-controller",
+      "measurement/measurement-calibration",
+      "measurement/arc-measurement",
+      "measurement/distance-measurement",
+      "measurement/shape-measurement",
+      "measurement/measurement-i18n",
+      "measurement/measurement-icons"
+    ]
+  },
+  {
+    "kind": "calibration",
+    "title": "Calibration",
+    "main": "CalibrationController",
+    "panel": null,
+    "modules": [
+      "measurement/calibration-controller",
+      "measurement/measurement-calculator"
+    ]
+  },
+  {
+    "kind": "measurement-sidebar",
+    "title": "Measurement Sidebar",
+    "main": "createMeasurementSidebarController",
+    "panel": "MeasurementSidebar",
+    "modules": [
+      "measurement/measurement-sidebar",
+      "measurement/measurement-sidebar-controller",
+      "measurement/measurement-sidebar-bridge",
+      "measurement/measurement-sidebar.models"
+    ]
+  },
+  {
+    "kind": "measurement-style",
+    "title": "Measurement Style",
+    "main": "MeasurementStyleController",
+    "panel": "MeasurementStyle",
+    "modules": [
+      "measurement/measurement-style-sidebar",
+      "measurement/measurement-style-controller",
+      "measurement/measurement-style-bridge",
+      "measurement/measurement-style.models",
+      "measurement/measurement-fill"
+    ]
+  },
+  {
+    "kind": "technical-comments",
+    "title": "Technical Comments",
+    "main": "TechnicalCommentController",
+    "panel": null,
+    "modules": [
+      "technical-comments/technical-comment.models",
+      "technical-comments/technical-comment-tool",
+      "technical-comments/technical-comment-controller",
+      "technical-comments/technical-comment-marker",
+      "technical-comments/technical-comment-pin",
+      "technical-comments/technical-comment-i18n",
+      "technical-comments/technical-comment-icons"
+    ]
+  },
+  {
+    "kind": "technical-comment-sidebar",
+    "title": "Technical Comment Sidebar",
+    "main": "createTechnicalCommentSidebarController",
+    "panel": "TechnicalCommentSidebar",
+    "modules": [
+      "technical-comments/technical-comment-sidebar",
+      "technical-comments/technical-comment-sidebar-controller",
+      "technical-comments/technical-comment-sidebar-bridge"
+    ]
+  },
+  {
+    "kind": "xfdf",
+    "title": "XFDF",
+    "main": "createXfdf",
+    "panel": null,
+    "modules": [
+      "export/xfdf-export",
+      "export/xfdf-coordinates",
+      "export/apryse-xfdf-adapter",
+      "export/xfdf-schema",
+      "export/xfdf-legacy-compatibility"
+    ]
+  },
+  {
+    "kind": "document-transfer",
+    "title": "Document Transfer",
+    "main": "DocumentTransferController",
+    "panel": null,
+    "modules": [
+      "export/document-transfer-controller",
+      "export/technical-comment-pdf"
+    ]
+  },
+  {
+    "kind": "modes",
+    "title": "Modes",
+    "main": "ViewerModesController",
+    "panel": null,
+    "modules": [
+      "viewer-extensions/viewer-modes-controller"
+    ]
+  },
+  {
+    "kind": "command-ui",
+    "title": "Command UI",
+    "main": "firstAvailableShortcut",
+    "panel": null,
+    "modules": [
+      "viewer-extensions/viewer-command-ui"
+    ]
+  },
+  {
+    "kind": "crosshair-menu",
+    "title": "Crosshair Menu",
+    "main": "registerViewerCrosshairMenu",
+    "panel": null,
+    "modules": [
+      "viewer-extensions/viewer-crosshair-menu"
+    ]
+  },
+  {
+    "kind": "guides-menu",
+    "title": "Guides Menu",
+    "main": "registerViewerGuidesMenu",
+    "panel": null,
+    "modules": [
+      "viewer-extensions/viewer-guides-menu"
+    ]
+  },
+  {
+    "kind": "measurement-menu",
+    "title": "Measurement Menu",
+    "main": "registerViewerMeasurementMenu",
+    "panel": null,
+    "modules": [
+      "viewer-extensions/viewer-measurement-menu"
+    ]
+  },
+  {
+    "kind": "technical-comment-menu",
+    "title": "Technical Comment Menu",
+    "main": "registerViewerTechnicalCommentMenu",
+    "panel": null,
+    "modules": [
+      "viewer-extensions/viewer-technical-comment-menu"
+    ]
+  }
+]

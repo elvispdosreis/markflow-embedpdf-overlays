@@ -1,0 +1,66 @@
+{
+  "name": "@elvispdosreis/markflow-measurement-sidebar",
+  "version": "0.2.0",
+  "description": "Measurement results panel, detailed rows, selection, navigation and host bridge",
+  "type": "module",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/types/react.d.ts",
+      "import": "./dist/react.js"
+    },
+    "./vue": {
+      "types": "./dist/types/vue.d.ts",
+      "import": "./dist/vue.js"
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "prepack": "node scripts/build.mjs"
+  },
+  "dependencies": {
+    "@elvispdosreis/markflow-core": "0.2.0"
+  },
+  "peerDependencies": {
+    "@embedpdf/snippet": "2.15.0",
+    "@embedpdf/models": "2.15.0",
+    "@embedpdf/plugin-interaction-manager": "2.15.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "vue": "^3.5.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elvispdosreis/markflow-embedpdf-overlays.git",
+    "directory": "packages/measurement-sidebar"
+  },
+  "bugs": {
+    "url": "https://github.com/elvispdosreis/markflow-embedpdf-overlays/issues"
+  },
+  "keywords": [
+    "markflow",
+    "embedpdf",
+    "pdf",
+    "measurement-sidebar"
+  ],
+  "license": "UNLICENSED",
+  "publishConfig": {
+    "access": "public"
+  }
+}

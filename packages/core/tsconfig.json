@@ -1,9 +1,40 @@
 {
   "compilerOptions": {
-    "target": "ES2022", "module": "ESNext", "moduleResolution": "bundler",
-    "strict": true, "skipLibCheck": true, "lib": ["ES2022", "DOM"],
-    "declaration": true, "emitDeclarationOnly": true, "rootDir": "src",
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "rootDir": "src",
     "outDir": "dist/types"
   },
-  "files": ["src/index.ts", "src/react.ts", "src/vue.ts"]
+  "files": [
+    "src/index.ts",
+    "src/react.ts",
+    "src/vue.ts",
+    "src/extensions/zoom.ts",
+    "src/extensions/context-menu.ts",
+    "src/extensions/measurements.ts",
+    "src/extensions/calibration.ts",
+    "src/extensions/measurement-sidebar.ts",
+    "src/extensions/measurement-style.ts",
+    "src/extensions/technical-comments.ts",
+    "src/extensions/technical-comment-sidebar.ts",
+    "src/extensions/xfdf.ts",
+    "src/extensions/document-transfer.ts",
+    "src/extensions/modes.ts",
+    "src/extensions/command-ui.ts",
+    "src/extensions/crosshair-menu.ts",
+    "src/extensions/guides-menu.ts",
+    "src/extensions/measurement-menu.ts",
+    "src/extensions/technical-comment-menu.ts",
+    "src/panel-react.ts",
+    "src/panel-vue.ts"
+  ]
 }

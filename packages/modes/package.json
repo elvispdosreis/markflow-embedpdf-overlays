@@ -1,0 +1,58 @@
+{
+  "name": "@elvispdosreis/markflow-modes",
+  "version": "0.2.0",
+  "description": "Keyboard, drawing modes, deletion, crosshair state and measurement interaction coordination",
+  "type": "module",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "prepack": "node scripts/build.mjs"
+  },
+  "dependencies": {
+    "@elvispdosreis/markflow-core": "0.2.0"
+  },
+  "peerDependencies": {
+    "@embedpdf/snippet": "2.15.0",
+    "@embedpdf/models": "2.15.0",
+    "@embedpdf/plugin-interaction-manager": "2.15.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "vue": "^3.5.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elvispdosreis/markflow-embedpdf-overlays.git",
+    "directory": "packages/modes"
+  },
+  "bugs": {
+    "url": "https://github.com/elvispdosreis/markflow-embedpdf-overlays/issues"
+  },
+  "keywords": [
+    "markflow",
+    "embedpdf",
+    "pdf",
+    "modes"
+  ],
+  "license": "UNLICENSED",
+  "publishConfig": {
+    "access": "public"
+  }
+}

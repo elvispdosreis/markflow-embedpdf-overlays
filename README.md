@@ -10,11 +10,30 @@ Independent PDF tools for EmbedPDF 2.15.0, with native, React and Vue integratio
 
 `@elvispdosreis/markflow-core` is a support dependency sharing rendering lifecycle, contexts and document state. It is not an additional feature extension. Each feature can be installed independently. Rulers and Guides work together when guide creation by dragging a ruler is desired.
 
+## Additional individual extensions
+
+- [MarkFlow Zoom](packages/zoom): `@elvispdosreis/markflow-zoom`
+- [MarkFlow Context Menu](packages/context-menu): `@elvispdosreis/markflow-context-menu`
+- [MarkFlow Measurements](packages/measurements): `@elvispdosreis/markflow-measurements`
+- [MarkFlow Calibration](packages/calibration): `@elvispdosreis/markflow-calibration`
+- [MarkFlow Measurement Sidebar](packages/measurement-sidebar): `@elvispdosreis/markflow-measurement-sidebar`
+- [MarkFlow Measurement Style](packages/measurement-style): `@elvispdosreis/markflow-measurement-style`
+- [MarkFlow Technical Comments](packages/technical-comments): `@elvispdosreis/markflow-technical-comments`
+- [MarkFlow Technical Comment Sidebar](packages/technical-comment-sidebar): `@elvispdosreis/markflow-technical-comment-sidebar`
+- [MarkFlow XFDF](packages/xfdf): `@elvispdosreis/markflow-xfdf`
+- [MarkFlow Document Transfer](packages/document-transfer): `@elvispdosreis/markflow-document-transfer`
+- [MarkFlow Modes](packages/modes): `@elvispdosreis/markflow-modes`
+- [MarkFlow Command UI](packages/command-ui): `@elvispdosreis/markflow-command-ui`
+- [MarkFlow Crosshair Menu](packages/crosshair-menu): `@elvispdosreis/markflow-crosshair-menu`
+- [MarkFlow Guides Menu](packages/guides-menu): `@elvispdosreis/markflow-guides-menu`
+- [MarkFlow Measurement Menu](packages/measurement-menu): `@elvispdosreis/markflow-measurement-menu`
+- [MarkFlow Technical Comment Menu](packages/technical-comment-menu): `@elvispdosreis/markflow-technical-comment-menu`
+
 ## Status
 
-Initial version **0.1.0**. Source is published on GitHub; npm publication is pending. No license has been granted yet. Do not assume an open-source license from repository visibility.
+Version **0.2.0**. Source is published on GitHub; npm publication is pending. No license has been granted yet. Do not assume an open-source license from repository visibility.
 
-This repository contains only Crosshair, Rulers, Guides and their shared support code. Approval stamps, application backend integration, private documents and application-specific services are excluded. Other MarkFlow tools will be packaged separately in later releases.
+This repository contains individually packaged overlays, zoom, context menu, measurements, calibration, panels, comments, XFDF transfer, keyboard modes and menu modules. Approval stamps, application backend integration, private documents and application-specific services are excluded. See the [extension catalog](docs/extensions.md) for every package, API and lifecycle limitation.
 
 ## Build and test
 
@@ -47,4 +66,4 @@ const options = createOverlayOptions({
 
 Use the same state/options when combining Rulers and Guides. Calibration converts PDF points to real-world units; it is not the zoom percentage. Keep state for the viewer session and call `state.destroy()` when that session ends. Each adapter cleans up its own view on unmount; it does not destroy shared session state. SSR renders only the host element; initialize the viewer on the client. React changes require a re-render. Vue getters can read refs/computed; keep GuidesState outside deep proxies, for example with `markRaw`.
 
-See each package README for React, Vue and native usage. The public style and element prefix is `markflow-`. These visual extensions do not parse or export XFDF; `markflow:` metadata and legacy RLZ import compatibility belong to the host application.
+See each package README for React, Vue and native usage. The public style and element prefix is `markflow-`. The visual extensions do not parse XFDF. The separate `markflow-xfdf` extension writes `markflow:` metadata with namespace `urn:markflow:xfdf:1` and accepts legacy RLZ imports until 2027-10-06 00:00 America/Sao_Paulo.
