@@ -1,6 +1,6 @@
 {
   "name": "@elvisreis/markflow-crosshair-menu",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Crosshair commands, shortcuts and full/simple crosshair menu",
   "type": "module",
   "files": [
@@ -20,7 +20,7 @@
     "prepack": "node scripts/build.mjs"
   },
   "dependencies": {
-    "@elvisreis/markflow-core": "0.2.1"
+    "@elvisreis/markflow-core": "0.2.2"
   },
   "peerDependencies": {
     "@embedpdf/snippet": "2.15.0",

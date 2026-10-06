@@ -2,12 +2,12 @@
 
 20 percentage point zoom controls, Ctrl/Cmd keyboard shortcuts and wheel handling inside the active viewer.
 
-Package: `@elvisreis/markflow-zoom`, version 0.2.1. Source and release notes are available on GitHub. No license has been granted yet.
+Package: `@elvisreis/markflow-zoom`, version 0.2.2. Source and release notes are available on GitHub. No license has been granted yet.
 
 ## Install
 
 ```sh
-npm install @elvisreis/markflow-zoom@0.2.1
+npm install @elvisreis/markflow-zoom@0.2.2
 ```
 
 ## Public API

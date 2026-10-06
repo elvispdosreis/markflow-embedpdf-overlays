@@ -2,12 +2,12 @@
 
 Distance, perimeter, polygon area, rectangle area, ellipse and arc tools with geometry, results, history, selection and appearance controllers.
 
-Package: `@elvisreis/markflow-measurements`, version 0.2.1. Source and release notes are available on GitHub. No license has been granted yet.
+Package: `@elvisreis/markflow-measurements`, version 0.2.2. Source and release notes are available on GitHub. No license has been granted yet.
 
 ## Install
 
 ```sh
-npm install @elvisreis/markflow-measurements@0.2.1
+npm install @elvisreis/markflow-measurements@0.2.2
 ```
 
 ## Public API

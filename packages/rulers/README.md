@@ -5,7 +5,7 @@ An independent rulers extension for EmbedPDF 2.15.0, with native, React and Vue 
 ## Install
 
 ```sh
-npm install @elvisreis/markflow-rulers@0.2.1
+npm install @elvisreis/markflow-rulers@0.2.2
 ```
 
 ## React

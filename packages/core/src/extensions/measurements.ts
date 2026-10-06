@@ -16,3 +16,7 @@ export * from '../features/measurement/distance-measurement';
 export * from '../features/measurement/shape-measurement';
 export * from '../features/measurement/measurement-i18n';
 export * from '../features/measurement/measurement-icons';
+export * from '../features/measurement/measurement.models';
+export * from '../features/measurement/perimeter-measurement-label';
+export * from '../features/measurement/shape-measurement-label';
+export * from '../features/measurement/segment-angle-measurement';

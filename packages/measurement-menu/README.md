@@ -2,12 +2,12 @@
 
 Measurement toolbar, panels, commands and UI events.
 
-Package: `@elvisreis/markflow-measurement-menu`, version 0.2.1. Source and release notes are available on GitHub. No license has been granted yet.
+Package: `@elvisreis/markflow-measurement-menu`, version 0.2.2. Source and release notes are available on GitHub. No license has been granted yet.
 
 ## Install
 
 ```sh
-npm install @elvisreis/markflow-measurement-menu@0.2.1
+npm install @elvisreis/markflow-measurement-menu@0.2.2
 ```
 
 ## Public API

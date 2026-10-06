@@ -1,6 +1,6 @@
 {
   "name": "@elvisreis/markflow-xfdf",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "MarkFlow XFDF import/export, Apryse adaptation, coordinate conversion and timed RLZ legacy compatibility",
   "type": "module",
   "files": [
@@ -20,7 +20,7 @@
     "prepack": "node scripts/build.mjs"
   },
   "dependencies": {
-    "@elvisreis/markflow-core": "0.2.1"
+    "@elvisreis/markflow-core": "0.2.2"
   },
   "peerDependencies": {
     "@embedpdf/snippet": "2.15.0",

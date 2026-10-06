@@ -2,12 +2,12 @@
 
 Measurement colors, stroke, fill patterns and style selection panel.
 
-Package: `@elvisreis/markflow-measurement-style`, version 0.2.1. Source and release notes are available on GitHub. No license has been granted yet.
+Package: `@elvisreis/markflow-measurement-style`, version 0.2.2. Source and release notes are available on GitHub. No license has been granted yet.
 
 ## Install
 
 ```sh
-npm install @elvisreis/markflow-measurement-style@0.2.1
+npm install @elvisreis/markflow-measurement-style@0.2.2
 ```
 
 ## Public API
