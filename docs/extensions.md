@@ -4,6 +4,9 @@ Each component is a separately installable package. The common runtime lives in 
 
 | Extension | Package | Public entry |
 | --- | --- | --- |
+| [Crosshair](../packages/crosshair) | `@elvispdosreis/markflow-crosshair` | `mountCrosshair` |
+| [Rulers](../packages/rulers) | `@elvispdosreis/markflow-rulers` | `mountRulers` |
+| [Guides](../packages/guides) | `@elvispdosreis/markflow-guides` | `mountGuides` |
 | Zoom | `@elvispdosreis/markflow-zoom` | `mountViewerZoomControls` |
 | Context Menu | `@elvispdosreis/markflow-context-menu` | `mountViewerContextMenu` |
 | Measurements | `@elvispdosreis/markflow-measurements` | `MeasurementCalculator` |

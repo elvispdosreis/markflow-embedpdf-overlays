@@ -17,4 +17,3 @@ export const MEASURE_COMMANDS: ReadonlyArray<MeasureCommandDefinition> = [
   {id: 'measure:ellipse', label: 'Elipse', labelKey: MEASUREMENT_I18N_KEYS.ellipse, icon: MEASUREMENT_ICON_NAMES.ellipse, toolId: MEASUREMENT_TOOL_IDS.ellipse, baseToolId: 'circle', kind: 'ellipse'},
   {id: 'measure:arc', label: 'Arco', labelKey: MEASUREMENT_I18N_KEYS.arc, icon: MEASUREMENT_ICON_NAMES.arc, toolId: MEASUREMENT_TOOL_IDS.arc, baseToolId: 'polyline', kind: 'arc'}
 ];
-

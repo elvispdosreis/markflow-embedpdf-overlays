@@ -246,4 +246,3 @@ export function registerViewerMeasurementMenu(options: ViewerMeasurementMenuOpti
   });
   return dispose;
 }
-

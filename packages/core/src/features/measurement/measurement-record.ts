@@ -82,4 +82,3 @@ export function measurementRecord(annotation: PdfAnnotationObject, fallback: Cal
     formattedValue: calculator.format(rawValue, calibration, squared)
   };
 }
-
