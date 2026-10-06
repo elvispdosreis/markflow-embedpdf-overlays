@@ -31,7 +31,13 @@ Independent PDF tools for EmbedPDF 2.15.0, with native, React and Vue integratio
 
 ## Status
 
-Version **0.2.1**. Source is published on GitHub; npm publication is pending. No license has been granted yet. Do not assume an open-source license from repository visibility.
+Version **0.2.1**. All 19 feature extensions and the shared core are published on npm under `@elvisreis`. Source is published on GitHub. No license has been granted yet. Do not assume an open-source license from repository visibility.
+
+Install individual features, for example:
+
+```sh
+npm install @elvisreis/markflow-zoom@0.2.1 @elvisreis/markflow-context-menu@0.2.1
+```
 
 This repository contains individually packaged overlays, zoom, context menu, measurements, calibration, panels, comments, XFDF transfer, keyboard modes and menu modules. Approval stamps, application backend integration, private documents and application-specific services are excluded. See the [extension catalog](docs/extensions.md) for every package, API and lifecycle limitation.
 
