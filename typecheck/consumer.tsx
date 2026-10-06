@@ -1,0 +1,15 @@
+import {createOverlayOptions, GuidesState} from '@elvispdosreis/markflow-guides';
+import {mountCrosshair} from '@elvispdosreis/markflow-crosshair';
+import {mountRulers} from '@elvispdosreis/markflow-rulers';
+import {mountGuides} from '@elvispdosreis/markflow-guides';
+import {MarkFlowCrosshair} from '@elvispdosreis/markflow-crosshair/react';
+import {MarkFlowRulers} from '@elvispdosreis/markflow-rulers/react';
+import {MarkFlowGuides} from '@elvispdosreis/markflow-guides/react';
+import {MarkFlowGuides as VueGuides} from '@elvispdosreis/markflow-guides/vue';
+const options = createOverlayOptions({state: new GuidesState()});
+const host = document.createElement('div');
+mountCrosshair(host, options).destroy();
+mountRulers(host, options).destroy();
+mountGuides(host, options).destroy();
+export const components = <><MarkFlowCrosshair options={options}/><MarkFlowRulers options={options}/><MarkFlowGuides options={options}/></>;
+export const vueComponent = VueGuides;

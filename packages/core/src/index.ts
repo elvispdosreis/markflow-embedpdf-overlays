@@ -1,0 +1,12 @@
+export {mountOverlayView} from './core/guides/overlay-view-mount';
+export {createOverlayOptions} from './options';
+export type {OverlayKind, OverlayViewDependencies, OverlayViewMount} from './core/guides/overlay-view-mount';
+export {GuidesState} from './core/guides/guides-state';
+export type {Guide, GuideOrientation} from './core/guides/guides-state';
+export {createCrosshairContext} from './core/crosshair/crosshair-context';
+export type {CrosshairContext, CrosshairStyle} from './core/crosshair/crosshair-context';
+export {createGuidesContext} from './core/guides/guides-context';
+export type {GuidesContext} from './core/guides/guides-context';
+export type {Calibration} from './core/measurement/measurement.models';
+export type {GuideDragActivity, GuideViewportOffset} from './core/guides/guides-interaction';
+export {renderCrosshairView, renderGuidesView, renderRulersView, clearOverlayView} from './core/guides/overlay-views';
