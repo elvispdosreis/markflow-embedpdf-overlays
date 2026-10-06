@@ -1,1 +1,1 @@
-export * from '@elvispdosreis/markflow-core/xfdf';
+export * from '@elvisreis/markflow-core/xfdf';

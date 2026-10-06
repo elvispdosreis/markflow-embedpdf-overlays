@@ -2,12 +2,18 @@
 
 Measurement results panel, detailed rows, selection, navigation and host bridge.
 
-Package: `@elvispdosreis/markflow-measurement-sidebar`, version 0.2.0. Source is published on GitHub; npm publication is pending. No license has been granted yet.
+Package: `@elvisreis/markflow-measurement-sidebar`, version 0.2.1. Source and release notes are available on GitHub. No license has been granted yet.
+
+## Install
+
+```sh
+npm install @elvisreis/markflow-measurement-sidebar@0.2.1
+```
 
 ## Public API
 
 ```ts
-import {createMeasurementSidebarController} from '@elvispdosreis/markflow-measurement-sidebar';
+import {createMeasurementSidebarController} from '@elvisreis/markflow-measurement-sidebar';
 ```
 
 Use the exported option interfaces and callbacks to connect this extension to your host. The implementation and behavior tests are linked from the repository's [API catalog](../../docs/extensions.md).
@@ -18,7 +24,7 @@ Register the sidebar bridge before mounting and dispose the registration after u
 
 ## React / Vue
 
-Import `MarkFlowMeasurementSidebar` from `@elvispdosreis/markflow-measurement-sidebar/react` or `@elvispdosreis/markflow-measurement-sidebar/vue` and pass `documentId`. Register the corresponding bridge from the package's native entry before mounting. SSR renders the host only; the panel mounts on the client.
+Import `MarkFlowMeasurementSidebar` from `@elvisreis/markflow-measurement-sidebar/react` or `@elvisreis/markflow-measurement-sidebar/vue` and pass `documentId`. Register the corresponding bridge from the package's native entry before mounting. SSR renders the host only; the panel mounts on the client.
 
 ## Development
 

@@ -1,1 +1,1 @@
-export * from '@elvispdosreis/markflow-core/calibration';
+export * from '@elvisreis/markflow-core/calibration';

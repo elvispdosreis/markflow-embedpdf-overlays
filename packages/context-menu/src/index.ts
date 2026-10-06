@@ -1,1 +1,1 @@
-export * from '@elvispdosreis/markflow-core/context-menu';
+export * from '@elvisreis/markflow-core/context-menu';

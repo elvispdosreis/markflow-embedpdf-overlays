@@ -4,12 +4,14 @@ An independent guides extension for EmbedPDF 2.15.0, with native, React and Vue 
 
 ## Install
 
-The packages are prepared for npm, but **not published to npm yet**. For now, clone the GitHub repository and run `npm ci` and `npm run build`. Once published, install `@elvispdosreis/markflow-guides` with npm.
+```sh
+npm install @elvisreis/markflow-guides@0.2.1
+```
 
 ## React
 
 ```tsx
-import {MarkFlowGuides} from '@elvispdosreis/markflow-guides/react';
+import {MarkFlowGuides} from '@elvisreis/markflow-guides/react';
 // options comes from your viewer session; mount in its native overlay slot.
 <MarkFlowGuides options={options} />
 ```
@@ -18,8 +20,8 @@ import {MarkFlowGuides} from '@elvispdosreis/markflow-guides/react';
 
 ```vue
 <script setup lang="ts">
-import {MarkFlowGuides} from '@elvispdosreis/markflow-guides/vue';
-import type {OverlayViewDependencies} from '@elvispdosreis/markflow-guides';
+import {MarkFlowGuides} from '@elvisreis/markflow-guides/vue';
+import type {OverlayViewDependencies} from '@elvisreis/markflow-guides';
 defineProps<{options: OverlayViewDependencies}>();
 </script>
 <template><MarkFlowGuides :options="options" /></template>
@@ -28,7 +30,7 @@ defineProps<{options: OverlayViewDependencies}>();
 ## Native mounting
 
 ```ts
-import {mountGuides} from '@elvispdosreis/markflow-guides';
+import {mountGuides} from '@elvisreis/markflow-guides';
 const mounted = mountGuides(overlayHost, options);
 mounted.update();
 // Dispose when the host unmounts:

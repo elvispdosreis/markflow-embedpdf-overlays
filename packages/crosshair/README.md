@@ -4,12 +4,14 @@ An independent crosshair extension for EmbedPDF 2.15.0, with native, React and V
 
 ## Install
 
-The packages are prepared for npm, but **not published to npm yet**. For now, clone the GitHub repository and run `npm ci` and `npm run build`. Once published, install `@elvispdosreis/markflow-crosshair` with npm.
+```sh
+npm install @elvisreis/markflow-crosshair@0.2.1
+```
 
 ## React
 
 ```tsx
-import {MarkFlowCrosshair} from '@elvispdosreis/markflow-crosshair/react';
+import {MarkFlowCrosshair} from '@elvisreis/markflow-crosshair/react';
 // options comes from your viewer session; mount in its native overlay slot.
 <MarkFlowCrosshair options={options} />
 ```
@@ -18,8 +20,8 @@ import {MarkFlowCrosshair} from '@elvispdosreis/markflow-crosshair/react';
 
 ```vue
 <script setup lang="ts">
-import {MarkFlowCrosshair} from '@elvispdosreis/markflow-crosshair/vue';
-import type {OverlayViewDependencies} from '@elvispdosreis/markflow-crosshair';
+import {MarkFlowCrosshair} from '@elvisreis/markflow-crosshair/vue';
+import type {OverlayViewDependencies} from '@elvisreis/markflow-crosshair';
 defineProps<{options: OverlayViewDependencies}>();
 </script>
 <template><MarkFlowCrosshair :options="options" /></template>
@@ -28,7 +30,7 @@ defineProps<{options: OverlayViewDependencies}>();
 ## Native mounting
 
 ```ts
-import {mountCrosshair} from '@elvispdosreis/markflow-crosshair';
+import {mountCrosshair} from '@elvisreis/markflow-crosshair';
 const mounted = mountCrosshair(overlayHost, options);
 mounted.update();
 // Dispose when the host unmounts:

@@ -1,1 +1,1 @@
-export {ViewerGuides as MarkFlowGuides} from '@elvispdosreis/markflow-core/vue';
+export {ViewerGuides as MarkFlowGuides} from '@elvisreis/markflow-core/vue';

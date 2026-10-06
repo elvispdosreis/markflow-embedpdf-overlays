@@ -1,1 +1,1 @@
-export * from '@elvispdosreis/markflow-core/modes';
+export * from '@elvisreis/markflow-core/modes';

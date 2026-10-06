@@ -2,12 +2,18 @@
 
 Measurement colors, stroke, fill patterns and style selection panel.
 
-Package: `@elvispdosreis/markflow-measurement-style`, version 0.2.0. Source is published on GitHub; npm publication is pending. No license has been granted yet.
+Package: `@elvisreis/markflow-measurement-style`, version 0.2.1. Source and release notes are available on GitHub. No license has been granted yet.
+
+## Install
+
+```sh
+npm install @elvisreis/markflow-measurement-style@0.2.1
+```
 
 ## Public API
 
 ```ts
-import {MeasurementStyleController} from '@elvispdosreis/markflow-measurement-style';
+import {MeasurementStyleController} from '@elvisreis/markflow-measurement-style';
 ```
 
 Use the exported option interfaces and callbacks to connect this extension to your host. The implementation and behavior tests are linked from the repository's [API catalog](../../docs/extensions.md).
@@ -18,7 +24,7 @@ Register the style bridge before mounting and dispose it after unmount. The curr
 
 ## React / Vue
 
-Import `MarkFlowMeasurementStyle` from `@elvispdosreis/markflow-measurement-style/react` or `@elvispdosreis/markflow-measurement-style/vue` and pass `documentId`. Register the corresponding bridge from the package's native entry before mounting. SSR renders the host only; the panel mounts on the client.
+Import `MarkFlowMeasurementStyle` from `@elvisreis/markflow-measurement-style/react` or `@elvisreis/markflow-measurement-style/vue` and pass `documentId`. Register the corresponding bridge from the package's native entry before mounting. SSR renders the host only; the panel mounts on the client.
 
 ## Development
 

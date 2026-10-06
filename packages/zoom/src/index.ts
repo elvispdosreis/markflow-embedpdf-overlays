@@ -1,1 +1,1 @@
-export * from '@elvispdosreis/markflow-core/zoom';
+export * from '@elvisreis/markflow-core/zoom';

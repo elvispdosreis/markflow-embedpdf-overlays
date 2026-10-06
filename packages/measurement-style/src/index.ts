@@ -1,1 +1,1 @@
-export * from '@elvispdosreis/markflow-core/measurement-style';
+export * from '@elvisreis/markflow-core/measurement-style';

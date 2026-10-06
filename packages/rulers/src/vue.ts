@@ -1,1 +1,1 @@
-export {ViewerRulers as MarkFlowRulers} from '@elvispdosreis/markflow-core/vue';
+export {ViewerRulers as MarkFlowRulers} from '@elvisreis/markflow-core/vue';

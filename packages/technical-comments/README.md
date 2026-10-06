@@ -2,12 +2,18 @@
 
 Numbered error, note, question and resolved comments with annotation tools and pin rendering.
 
-Package: `@elvispdosreis/markflow-technical-comments`, version 0.2.0. Source is published on GitHub; npm publication is pending. No license has been granted yet.
+Package: `@elvisreis/markflow-technical-comments`, version 0.2.1. Source and release notes are available on GitHub. No license has been granted yet.
+
+## Install
+
+```sh
+npm install @elvisreis/markflow-technical-comments@0.2.1
+```
 
 ## Public API
 
 ```ts
-import {TechnicalCommentController} from '@elvispdosreis/markflow-technical-comments';
+import {TechnicalCommentController} from '@elvisreis/markflow-technical-comments';
 ```
 
 Use the exported option interfaces and callbacks to connect this extension to your host. The implementation and behavior tests are linked from the repository's [API catalog](../../docs/extensions.md).

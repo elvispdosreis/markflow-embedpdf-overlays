@@ -1,6 +1,6 @@
 {
-  "name": "@elvispdosreis/markflow-core",
-  "version": "0.2.0",
+  "name": "@elvisreis/markflow-core",
+  "version": "0.2.1",
   "description": "Shared runtime for the independent MarkFlow EmbedPDF extensions",
   "type": "module",
   "files": [

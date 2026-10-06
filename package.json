@@ -1,6 +1,6 @@
 {
   "name": "markflow-embedpdf-extensions",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "node scripts/build-all.mjs",
-    "test": "npm test -w @elvispdosreis/markflow-core && tsc --project tsconfig.consumer.json && vitest run --config vitest.config.mjs",
+    "test": "npm test -w @elvisreis/markflow-core && tsc --project tsconfig.consumer.json && vitest run --config vitest.config.mjs",
     "pack:check": "npm pack --dry-run --ignore-scripts --workspaces"
   },
   "license": "UNLICENSED"

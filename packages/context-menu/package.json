@@ -1,6 +1,6 @@
 {
-  "name": "@elvispdosreis/markflow-context-menu",
-  "version": "0.2.0",
+  "name": "@elvisreis/markflow-context-menu",
+  "version": "0.2.1",
   "description": "Right-click quick actions with fixed drag/pointer modes and five recent tools per document",
   "type": "module",
   "files": [
@@ -20,7 +20,7 @@
     "prepack": "node scripts/build.mjs"
   },
   "dependencies": {
-    "@elvispdosreis/markflow-core": "0.2.0"
+    "@elvisreis/markflow-core": "0.2.1"
   },
   "peerDependencies": {
     "@embedpdf/snippet": "2.15.0",

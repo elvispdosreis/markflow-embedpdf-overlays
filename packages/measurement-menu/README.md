@@ -2,12 +2,18 @@
 
 Measurement toolbar, panels, commands and UI events.
 
-Package: `@elvispdosreis/markflow-measurement-menu`, version 0.2.0. Source is published on GitHub; npm publication is pending. No license has been granted yet.
+Package: `@elvisreis/markflow-measurement-menu`, version 0.2.1. Source and release notes are available on GitHub. No license has been granted yet.
+
+## Install
+
+```sh
+npm install @elvisreis/markflow-measurement-menu@0.2.1
+```
 
 ## Public API
 
 ```ts
-import {registerViewerMeasurementMenu} from '@elvispdosreis/markflow-measurement-menu';
+import {registerViewerMeasurementMenu} from '@elvisreis/markflow-measurement-menu';
 ```
 
 Use the exported option interfaces and callbacks to connect this extension to your host. The implementation and behavior tests are linked from the repository's [API catalog](../../docs/extensions.md).

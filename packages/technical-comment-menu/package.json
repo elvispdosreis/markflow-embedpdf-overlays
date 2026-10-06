@@ -1,6 +1,6 @@
 {
-  "name": "@elvispdosreis/markflow-technical-comment-menu",
-  "version": "0.2.0",
+  "name": "@elvisreis/markflow-technical-comment-menu",
+  "version": "0.2.1",
   "description": "Technical comment tool command and panel menu",
   "type": "module",
   "files": [
@@ -20,7 +20,7 @@
     "prepack": "node scripts/build.mjs"
   },
   "dependencies": {
-    "@elvispdosreis/markflow-core": "0.2.0"
+    "@elvisreis/markflow-core": "0.2.1"
   },
   "peerDependencies": {
     "@embedpdf/snippet": "2.15.0",

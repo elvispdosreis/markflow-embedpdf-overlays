@@ -1,1 +1,1 @@
-export * from '@elvispdosreis/markflow-core/document-transfer';
+export * from '@elvisreis/markflow-core/document-transfer';

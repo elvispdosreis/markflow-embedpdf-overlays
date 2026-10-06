@@ -2,12 +2,18 @@
 
 Keyboard, drawing modes, deletion, crosshair state and measurement interaction coordination.
 
-Package: `@elvispdosreis/markflow-modes`, version 0.2.0. Source is published on GitHub; npm publication is pending. No license has been granted yet.
+Package: `@elvisreis/markflow-modes`, version 0.2.1. Source and release notes are available on GitHub. No license has been granted yet.
+
+## Install
+
+```sh
+npm install @elvisreis/markflow-modes@0.2.1
+```
 
 ## Public API
 
 ```ts
-import {ViewerModesController} from '@elvispdosreis/markflow-modes';
+import {ViewerModesController} from '@elvisreis/markflow-modes';
 ```
 
 Use the exported option interfaces and callbacks to connect this extension to your host. The implementation and behavior tests are linked from the repository's [API catalog](../../docs/extensions.md).

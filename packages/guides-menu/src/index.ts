@@ -1,1 +1,1 @@
-export * from '@elvispdosreis/markflow-core/guides-menu';
+export * from '@elvisreis/markflow-core/guides-menu';

@@ -2,12 +2,18 @@
 
 Technical comment listing, selection, navigation and removal panel.
 
-Package: `@elvispdosreis/markflow-technical-comment-sidebar`, version 0.2.0. Source is published on GitHub; npm publication is pending. No license has been granted yet.
+Package: `@elvisreis/markflow-technical-comment-sidebar`, version 0.2.1. Source and release notes are available on GitHub. No license has been granted yet.
+
+## Install
+
+```sh
+npm install @elvisreis/markflow-technical-comment-sidebar@0.2.1
+```
 
 ## Public API
 
 ```ts
-import {createTechnicalCommentSidebarController} from '@elvispdosreis/markflow-technical-comment-sidebar';
+import {createTechnicalCommentSidebarController} from '@elvisreis/markflow-technical-comment-sidebar';
 ```
 
 Use the exported option interfaces and callbacks to connect this extension to your host. The implementation and behavior tests are linked from the repository's [API catalog](../../docs/extensions.md).
@@ -18,7 +24,7 @@ Register the sidebar bridge before mounting and dispose it after unmount. The cu
 
 ## React / Vue
 
-Import `MarkFlowTechnicalCommentSidebar` from `@elvispdosreis/markflow-technical-comment-sidebar/react` or `@elvispdosreis/markflow-technical-comment-sidebar/vue` and pass `documentId`. Register the corresponding bridge from the package's native entry before mounting. SSR renders the host only; the panel mounts on the client.
+Import `MarkFlowTechnicalCommentSidebar` from `@elvisreis/markflow-technical-comment-sidebar/react` or `@elvisreis/markflow-technical-comment-sidebar/vue` and pass `documentId`. Register the corresponding bridge from the package's native entry before mounting. SSR renders the host only; the panel mounts on the client.
 
 ## Development
 

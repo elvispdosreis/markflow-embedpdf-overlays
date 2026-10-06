@@ -2,12 +2,18 @@
 
 Available shortcut selection and viewer toolbar composition.
 
-Package: `@elvispdosreis/markflow-command-ui`, version 0.2.0. Source is published on GitHub; npm publication is pending. No license has been granted yet.
+Package: `@elvisreis/markflow-command-ui`, version 0.2.1. Source and release notes are available on GitHub. No license has been granted yet.
+
+## Install
+
+```sh
+npm install @elvisreis/markflow-command-ui@0.2.1
+```
 
 ## Public API
 
 ```ts
-import {firstAvailableShortcut} from '@elvispdosreis/markflow-command-ui';
+import {firstAvailableShortcut} from '@elvisreis/markflow-command-ui';
 ```
 
 Use the exported option interfaces and callbacks to connect this extension to your host. The implementation and behavior tests are linked from the repository's [API catalog](../../docs/extensions.md).

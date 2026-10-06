@@ -4,25 +4,25 @@ Each component is a separately installable package. The common runtime lives in 
 
 | Extension | Package | Public entry |
 | --- | --- | --- |
-| [Crosshair](../packages/crosshair) | `@elvispdosreis/markflow-crosshair` | `mountCrosshair` |
-| [Rulers](../packages/rulers) | `@elvispdosreis/markflow-rulers` | `mountRulers` |
-| [Guides](../packages/guides) | `@elvispdosreis/markflow-guides` | `mountGuides` |
-| Zoom | `@elvispdosreis/markflow-zoom` | `mountViewerZoomControls` |
-| Context Menu | `@elvispdosreis/markflow-context-menu` | `mountViewerContextMenu` |
-| Measurements | `@elvispdosreis/markflow-measurements` | `MeasurementCalculator` |
-| Calibration | `@elvispdosreis/markflow-calibration` | `CalibrationController` |
-| Measurement Sidebar | `@elvispdosreis/markflow-measurement-sidebar` | `createMeasurementSidebarController` |
-| Measurement Style | `@elvispdosreis/markflow-measurement-style` | `MeasurementStyleController` |
-| Technical Comments | `@elvispdosreis/markflow-technical-comments` | `TechnicalCommentController` |
-| Technical Comment Sidebar | `@elvispdosreis/markflow-technical-comment-sidebar` | `createTechnicalCommentSidebarController` |
-| XFDF | `@elvispdosreis/markflow-xfdf` | `createXfdf` |
-| Document Transfer | `@elvispdosreis/markflow-document-transfer` | `DocumentTransferController` |
-| Modes | `@elvispdosreis/markflow-modes` | `ViewerModesController` |
-| Command UI | `@elvispdosreis/markflow-command-ui` | `firstAvailableShortcut` |
-| Crosshair Menu | `@elvispdosreis/markflow-crosshair-menu` | `registerViewerCrosshairMenu` |
-| Guides Menu | `@elvispdosreis/markflow-guides-menu` | `registerViewerGuidesMenu` |
-| Measurement Menu | `@elvispdosreis/markflow-measurement-menu` | `registerViewerMeasurementMenu` |
-| Technical Comment Menu | `@elvispdosreis/markflow-technical-comment-menu` | `registerViewerTechnicalCommentMenu` |
+| [Crosshair](../packages/crosshair) | `@elvisreis/markflow-crosshair` | `mountCrosshair` |
+| [Rulers](../packages/rulers) | `@elvisreis/markflow-rulers` | `mountRulers` |
+| [Guides](../packages/guides) | `@elvisreis/markflow-guides` | `mountGuides` |
+| Zoom | `@elvisreis/markflow-zoom` | `mountViewerZoomControls` |
+| Context Menu | `@elvisreis/markflow-context-menu` | `mountViewerContextMenu` |
+| Measurements | `@elvisreis/markflow-measurements` | `MeasurementCalculator` |
+| Calibration | `@elvisreis/markflow-calibration` | `CalibrationController` |
+| Measurement Sidebar | `@elvisreis/markflow-measurement-sidebar` | `createMeasurementSidebarController` |
+| Measurement Style | `@elvisreis/markflow-measurement-style` | `MeasurementStyleController` |
+| Technical Comments | `@elvisreis/markflow-technical-comments` | `TechnicalCommentController` |
+| Technical Comment Sidebar | `@elvisreis/markflow-technical-comment-sidebar` | `createTechnicalCommentSidebarController` |
+| XFDF | `@elvisreis/markflow-xfdf` | `createXfdf` |
+| Document Transfer | `@elvisreis/markflow-document-transfer` | `DocumentTransferController` |
+| Modes | `@elvisreis/markflow-modes` | `ViewerModesController` |
+| Command UI | `@elvisreis/markflow-command-ui` | `firstAvailableShortcut` |
+| Crosshair Menu | `@elvisreis/markflow-crosshair-menu` | `registerViewerCrosshairMenu` |
+| Guides Menu | `@elvisreis/markflow-guides-menu` | `registerViewerGuidesMenu` |
+| Measurement Menu | `@elvisreis/markflow-measurement-menu` | `registerViewerMeasurementMenu` |
+| Technical Comment Menu | `@elvisreis/markflow-technical-comment-menu` | `registerViewerTechnicalCommentMenu` |
 
 ## Zoom
 

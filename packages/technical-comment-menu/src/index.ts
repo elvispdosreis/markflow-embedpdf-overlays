@@ -1,1 +1,1 @@
-export * from '@elvispdosreis/markflow-core/technical-comment-menu';
+export * from '@elvisreis/markflow-core/technical-comment-menu';

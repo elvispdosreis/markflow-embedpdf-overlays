@@ -4,12 +4,14 @@ An independent rulers extension for EmbedPDF 2.15.0, with native, React and Vue 
 
 ## Install
 
-The packages are prepared for npm, but **not published to npm yet**. For now, clone the GitHub repository and run `npm ci` and `npm run build`. Once published, install `@elvispdosreis/markflow-rulers` with npm.
+```sh
+npm install @elvisreis/markflow-rulers@0.2.1
+```
 
 ## React
 
 ```tsx
-import {MarkFlowRulers} from '@elvispdosreis/markflow-rulers/react';
+import {MarkFlowRulers} from '@elvisreis/markflow-rulers/react';
 // options comes from your viewer session; mount in its native overlay slot.
 <MarkFlowRulers options={options} />
 ```
@@ -18,8 +20,8 @@ import {MarkFlowRulers} from '@elvispdosreis/markflow-rulers/react';
 
 ```vue
 <script setup lang="ts">
-import {MarkFlowRulers} from '@elvispdosreis/markflow-rulers/vue';
-import type {OverlayViewDependencies} from '@elvispdosreis/markflow-rulers';
+import {MarkFlowRulers} from '@elvisreis/markflow-rulers/vue';
+import type {OverlayViewDependencies} from '@elvisreis/markflow-rulers';
 defineProps<{options: OverlayViewDependencies}>();
 </script>
 <template><MarkFlowRulers :options="options" /></template>
@@ -28,7 +30,7 @@ defineProps<{options: OverlayViewDependencies}>();
 ## Native mounting
 
 ```ts
-import {mountRulers} from '@elvispdosreis/markflow-rulers';
+import {mountRulers} from '@elvisreis/markflow-rulers';
 const mounted = mountRulers(overlayHost, options);
 mounted.update();
 // Dispose when the host unmounts:

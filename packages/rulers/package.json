@@ -1,6 +1,6 @@
 {
-  "name": "@elvispdosreis/markflow-rulers",
-  "version": "0.2.0",
+  "name": "@elvisreis/markflow-rulers",
+  "version": "0.2.1",
   "description": "MarkFlow Rulers: an independent EmbedPDF extension with React and Vue adapters",
   "type": "module",
   "files": [
@@ -28,7 +28,7 @@
     "prepack": "node scripts/build.mjs"
   },
   "dependencies": {
-    "@elvispdosreis/markflow-core": "0.2.0"
+    "@elvisreis/markflow-core": "0.2.1"
   },
   "peerDependencies": {
     "@embedpdf/snippet": "2.15.0",

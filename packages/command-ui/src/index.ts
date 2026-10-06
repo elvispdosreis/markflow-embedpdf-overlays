@@ -1,1 +1,1 @@
-export * from '@elvispdosreis/markflow-core/command-ui';
+export * from '@elvisreis/markflow-core/command-ui';

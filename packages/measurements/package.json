@@ -1,6 +1,6 @@
 {
-  "name": "@elvispdosreis/markflow-measurements",
-  "version": "0.2.0",
+  "name": "@elvisreis/markflow-measurements",
+  "version": "0.2.1",
   "description": "Distance, perimeter, polygon area, rectangle area, ellipse and arc tools with geometry, results, history, selection and appearance controllers",
   "type": "module",
   "files": [
@@ -20,7 +20,7 @@
     "prepack": "node scripts/build.mjs"
   },
   "dependencies": {
-    "@elvispdosreis/markflow-core": "0.2.0"
+    "@elvisreis/markflow-core": "0.2.1"
   },
   "peerDependencies": {
     "@embedpdf/snippet": "2.15.0",

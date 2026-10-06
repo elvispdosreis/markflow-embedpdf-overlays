@@ -1,6 +1,6 @@
 {
-  "name": "@elvispdosreis/markflow-measurement-menu",
-  "version": "0.2.0",
+  "name": "@elvisreis/markflow-measurement-menu",
+  "version": "0.2.1",
   "description": "Measurement toolbar, panels, commands and UI events",
   "type": "module",
   "files": [
@@ -20,7 +20,7 @@
     "prepack": "node scripts/build.mjs"
   },
   "dependencies": {
-    "@elvispdosreis/markflow-core": "0.2.0"
+    "@elvisreis/markflow-core": "0.2.1"
   },
   "peerDependencies": {
     "@embedpdf/snippet": "2.15.0",

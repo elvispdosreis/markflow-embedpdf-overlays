@@ -1,1 +1,1 @@
-export * from '@elvispdosreis/markflow-core/crosshair-menu';
+export * from '@elvisreis/markflow-core/crosshair-menu';
