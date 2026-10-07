@@ -2,12 +2,12 @@
 
 Preset and custom scales, units, precision, imported calibration and recalculated results.
 
-Package: `@elvisreis/markflow-calibration`, version 0.2.2. Source and release notes are available on GitHub. No license has been granted yet.
+Package: `@elvisreis/markflow-calibration`, version 0.3.0. Source and release notes are available on GitHub. No license has been granted yet.
 
 ## Install
 
 ```sh
-npm install @elvisreis/markflow-calibration@0.2.2
+npm install @elvisreis/markflow-calibration@0.3.0
 ```
 
 ## Public API
@@ -20,11 +20,31 @@ Use the exported option interfaces and callbacks to connect this extension to yo
 
 ## Lifecycle and limits
 
-Keep one controller per session. Apply draft changes explicitly; this package does not mount UI.
+Keep one controller per session. New sessions start at an applied 1:100 scale.
+Imported scales remain authoritative. Apply draft changes explicitly and discard
+pending changes on Cancel.
+
+## Integrated visual sidebar
+
+The package exports `CalibrationSidebar`, `registerCalibrationSidebar`,
+`registerCalibrationSidebarBridge`, `notifyCalibrationSidebar` and
+`CALIBRATION_SIDEBAR_ID`. Register `CalibrationSidebar` as the EmbedPDF custom
+component `markflow-calibration-sidebar`, then call `registerCalibrationSidebar(ui)`.
+Connect a bridge with `snapshot(documentId)`, `update(documentId, patch)`,
+`apply(documentId)` and `cancel(documentId)`; dispose the bridge registration on teardown.
+Open the panel through `ui.forDocument(documentId).setActiveSidebar('left', 'main', CALIBRATION_SIDEBAR_ID)`.
+Notify the sidebar after external/imported state changes.
+
+The controls follow the native annotation-style panel. The package retains all
+previous headless exports and the shared `markflow-core@0.2.2` runtime.
 
 ## React / Vue
 
-This package exports framework-independent functions and controllers. Call them from React effects or Vue lifecycle hooks, forwarding viewer capabilities and host callbacks. It does not add a framework-specific visual component.
+Use `mountCalibrationSidebar(host, documentId, bridge)` from React effects, Vue
+lifecycle hooks or Angular view initialization. It mounts the same visual element
+without a framework-specific wrapper and returns `refresh()` and `dispose()`.
+The host provides recalculation and persistence through the bridge callbacks.
+The visual adapter uses Preact and EmbedPDF 2.15.0; it has no Angular dependency.
 
 ## Development
 

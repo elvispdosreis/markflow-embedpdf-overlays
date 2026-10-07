@@ -10,7 +10,7 @@ Each component is a separately installable package. The common runtime lives in 
 | Zoom | `@elvisreis/markflow-zoom` | `mountViewerZoomControls` |
 | Context Menu | `@elvisreis/markflow-context-menu` | `mountViewerContextMenu` |
 | Measurements | `@elvisreis/markflow-measurements` | `MeasurementCalculator` |
-| Calibration | `@elvisreis/markflow-calibration` | `CalibrationController` |
+| Calibration | `@elvisreis/markflow-calibration` | `CalibrationController`, `CalibrationSidebar`, `mountCalibrationSidebar` |
 | Measurement Sidebar | `@elvisreis/markflow-measurement-sidebar` | `createMeasurementSidebarController` |
 | Measurement Style | `@elvisreis/markflow-measurement-style` | `MeasurementStyleController` |
 | Technical Comments | `@elvisreis/markflow-technical-comments` | `TechnicalCommentController` |
