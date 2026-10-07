@@ -36,7 +36,7 @@ const CSS = `
 ${ELEMENT}{display:block;height:100%;min-height:0;color:var(--ep-foreground-primary,#111827);font:inherit}
 ${ELEMENT} *{box-sizing:border-box}
 ${ELEMENT} main{height:100%;overflow-y:auto;padding:18px 16px;background:var(--ep-background-surface,#fff)}
-${ELEMENT} h2{font:inherit;font-weight:var(--font-weight-medium,500);margin:0 0 16px}
+${ELEMENT} h2{font:inherit;font-weight:var(--font-weight-semibold,600);margin:0 0 16px}
 ${ELEMENT} section{margin:0 0 22px}
 ${ELEMENT} label{display:block;margin:0 0 8px;font-size:var(--text-sm,.875rem);line-height:var(--text-sm--line-height,1.428571);font-weight:var(--font-weight-medium,500)}
 ${ELEMENT} input{width:100%;height:30px;padding:0 8px;border:1px solid var(--ep-border-default,#cbd5e1);border-radius:4px;background:var(--ep-background-input,#fff);color:inherit;font:inherit;font-size:var(--text-sm,.875rem);font-weight:var(--font-weight-normal,400)}
