@@ -41,16 +41,15 @@ ${ELEMENT} section{margin:0 0 22px}
 ${ELEMENT} label{display:block;margin:0 0 8px;font-size:var(--text-sm,.875rem);line-height:var(--text-sm--line-height,1.428571);font-weight:var(--font-weight-medium,500)}
 ${ELEMENT} input{width:100%;height:30px;padding:0 8px;border:1px solid var(--ep-border-default,#cbd5e1);border-radius:4px;background:var(--ep-background-input,#fff);color:inherit;font:inherit;font-size:var(--text-sm,.875rem);font-weight:var(--font-weight-normal,400)}
 ${ELEMENT} label input{display:block;margin-top:8px}
-${ELEMENT} button{display:inline-flex;align-items:center;justify-content:center;font:inherit;font-size:var(--text-sm,.875rem);line-height:var(--text-sm--line-height,1.428571);height:32px;width:auto;min-width:32px;padding:5px;border:0;border-radius:6px;background:transparent;color:inherit;cursor:pointer;transition:background-color .15s,box-shadow .15s}
-${ELEMENT} button:hover{background:var(--ep-interactive-hover,#f3f4f6);box-shadow:0 0 0 1px var(--ep-accent-primary,#3b82f6)}
-${ELEMENT} button[aria-pressed=true]{background:var(--ep-interactive-selected,#eff6ff);color:var(--ep-accent-primary,#3b82f6);box-shadow:0 0 0 1px var(--ep-accent-primary,#3b82f6),0 1px 3px #0000001a}
-${ELEMENT} button.primary{background:var(--ep-accent-primary,#3b82f6);color:var(--ep-foreground-on-accent,#fff)}
+${ELEMENT} button{display:inline-flex;align-items:center;justify-content:center;font:inherit;font-size:var(--text-sm,.875rem);line-height:var(--text-sm--line-height,1.428571);min-height:36px;min-width:0;padding:4px 8px;border:1px solid var(--ep-border-default,#cbd5e1);border-radius:4px;background:var(--ep-background-input,#fff);color:inherit;cursor:pointer;transition:background-color .15s,border-color .15s}
+${ELEMENT} button:hover{background:var(--ep-interactive-hover,#f3f4f6)}
+${ELEMENT} button[aria-pressed=true],${ELEMENT} button.primary{background:var(--ep-accent-primary,#3b82f6);border-color:var(--ep-accent-primary,#3b82f6);color:var(--ep-foreground-on-accent,#fff)}
 ${ELEMENT} button.primary:hover{background:var(--ep-accent-primary-hover,#2563eb)}
 ${ELEMENT} button:disabled{opacity:.5;cursor:not-allowed}
 ${ELEMENT} button:disabled:hover{box-shadow:none}
 ${ELEMENT} :is(input,button):focus-visible{outline:2px solid var(--ep-interactive-focus-ring,#3b82f6);outline-offset:2px}
 ${ELEMENT} .picker{position:relative;width:100%}
-${ELEMENT} .picker-trigger{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;height:30px;padding:4px 8px;border:1px solid var(--ep-border-default,#cbd5e1);border-radius:4px;background:var(--ep-background-input,#fff);text-align:left}
+${ELEMENT} .picker-trigger{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;height:30px;min-height:30px;padding:4px 8px;border:1px solid var(--ep-border-default,#cbd5e1);border-radius:4px;background:var(--ep-background-input,#fff);text-align:left}
 ${ELEMENT} .picker-trigger:hover{background:var(--ep-background-input,#fff);box-shadow:none}
 ${ELEMENT} .picker-trigger svg{width:16px;height:16px;color:var(--ep-foreground-secondary,#64748b);flex-shrink:0}
 ${ELEMENT} .picker-menu{position:absolute;z-index:10;top:calc(100% + 4px);width:100%;max-height:240px;overflow-y:auto;padding:4px;border:1px solid var(--ep-border-default,#cbd5e1);border-radius:4px;background:var(--ep-background-elevated,#fff);box-shadow:0 10px 15px -3px #0000001a,0 4px 6px -4px #0000001a}
@@ -59,10 +58,11 @@ ${ELEMENT} .picker-menu[hidden]{display:none}
 ${ELEMENT} .picker-option{display:block;width:100%;height:auto;min-height:32px;border:0;border-radius:4px;text-align:left;font-size:inherit;line-height:inherit;padding:4px 8px;background:transparent}
 ${ELEMENT} .picker-option:hover{box-shadow:none}
 ${ELEMENT} .picker-option[aria-selected=true],${ELEMENT} .picker-option:hover{background:var(--ep-interactive-hover,#f3f4f6)}
-${ELEMENT} .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+${ELEMENT} .row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+${ELEMENT} .row>button,${ELEMENT} .actions>button{width:100%;overflow-wrap:anywhere}
 ${ELEMENT} .hint{font-size:var(--text-xs,.75rem);line-height:var(--text-xs--line-height,1.333333);color:var(--ep-foreground-muted,#64748b);margin:0 0 20px}
 ${ELEMENT} .error{font-size:var(--text-xs,.75rem);color:var(--ep-state-error,#b91c1c);margin:0 0 16px}
-${ELEMENT} .actions{display:flex;flex-wrap:wrap;gap:8px;border-top:1px solid var(--ep-border-default,#cbd5e1);padding-top:16px}
+${ELEMENT} .actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;border-top:1px solid var(--ep-border-default,#cbd5e1);padding-top:16px}
 `;
 
 function node<K extends keyof HTMLElementTagNameMap>(tag: K, text?: string): HTMLElementTagNameMap[K] {
@@ -173,7 +173,7 @@ function defineElement(): void {
       const hint = node('p', 'A escala usa o tamanho físico do PDF: 1 ponto corresponde a 1/72 de polegada no papel.'); hint.className = 'hint'; root.append(hint);
       if (!snapshot.valid) {const error = node('p', 'Informe medidas maiores que zero e uma escala válida.'); error.className = 'error'; error.setAttribute('role', 'alert'); root.append(error);}
       const actions = node('div'); actions.className = 'actions';
-      const cancel = node('button', 'Cancelar'), apply = node('button', 'Aplicar calibragem');
+      const cancel = node('button', 'Cancelar'), apply = node('button', 'Aplicar');
       cancel.type = apply.type = 'button'; cancel.onclick = () => active.cancel(this.idValue);
       apply.className = 'primary'; apply.dataset['apply'] = ''; apply.disabled = !snapshot.valid;
       apply.onclick = () => active.apply(this.idValue); actions.append(cancel, apply); root.append(actions);
