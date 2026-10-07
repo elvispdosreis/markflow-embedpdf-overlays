@@ -41,21 +41,25 @@ ${ELEMENT} section{margin:0 0 22px}
 ${ELEMENT} label{display:block;margin:0 0 8px;font-weight:400}
 ${ELEMENT} input{width:100%;height:30px;padding:0 8px;border:1px solid var(--ep-border-default,#cbd5e1);border-radius:4px;background:var(--ep-background-input,#fff);color:inherit;font:inherit}
 ${ELEMENT} label input{display:block;margin-top:8px}
-${ELEMENT} button{font:inherit;height:36px;padding:4px 8px;border:1px solid var(--ep-border-default,#cbd5e1);border-radius:4px;background:var(--ep-background-input,#fff);color:inherit;cursor:pointer;transition:background-color .15s,border-color .15s}
-${ELEMENT} button:hover{background:var(--ep-interactive-hover,#f3f4f6)}
-${ELEMENT} button[aria-pressed=true],${ELEMENT} button.primary{background:var(--ep-accent-primary,#3b82f6);border-color:var(--ep-accent-primary,#3b82f6);color:var(--ep-foreground-on-accent,#fff)}
-${ELEMENT} button.primary:hover{background:var(--ep-accent-primary-hover,#2563eb);border-color:var(--ep-accent-primary-hover,#2563eb)}
-${ELEMENT} button:disabled{opacity:.45;cursor:not-allowed}
+${ELEMENT} button{display:inline-flex;align-items:center;justify-content:center;font:inherit;height:32px;width:auto;min-width:32px;padding:5px;border:0;border-radius:6px;background:transparent;color:inherit;cursor:pointer;transition:background-color .15s,box-shadow .15s}
+${ELEMENT} button:hover{background:var(--ep-interactive-hover,#f3f4f6);box-shadow:0 0 0 1px var(--ep-accent-primary,#3b82f6)}
+${ELEMENT} button[aria-pressed=true]{background:var(--ep-interactive-selected,#eff6ff);color:var(--ep-accent-primary,#3b82f6);box-shadow:0 0 0 1px var(--ep-accent-primary,#3b82f6),0 1px 3px #0000001a}
+${ELEMENT} button.primary{background:var(--ep-accent-primary,#3b82f6);color:var(--ep-foreground-on-accent,#fff)}
+${ELEMENT} button.primary:hover{background:var(--ep-accent-primary-hover,#2563eb)}
+${ELEMENT} button:disabled{opacity:.5;cursor:not-allowed}
+${ELEMENT} button:disabled:hover{box-shadow:none}
 ${ELEMENT} :is(input,button):focus-visible{outline:2px solid var(--ep-interactive-focus-ring,#3b82f6);outline-offset:2px}
 ${ELEMENT} .picker{position:relative;width:100%}
-${ELEMENT} .picker-trigger{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;height:30px;text-align:left}
+${ELEMENT} .picker-trigger{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;height:30px;padding:4px 8px;border:1px solid var(--ep-border-default,#cbd5e1);border-radius:4px;background:var(--ep-background-input,#fff);text-align:left}
+${ELEMENT} .picker-trigger:hover{background:var(--ep-background-input,#fff);box-shadow:none}
 ${ELEMENT} .picker-trigger svg{width:16px;height:16px;color:var(--ep-foreground-secondary,#64748b);flex-shrink:0}
 ${ELEMENT} .picker-menu{position:absolute;z-index:10;top:calc(100% + 4px);width:100%;max-height:240px;overflow-y:auto;padding:4px;border:1px solid var(--ep-border-default,#cbd5e1);border-radius:4px;background:var(--ep-background-elevated,#fff);box-shadow:0 10px 15px -3px #0000001a,0 4px 6px -4px #0000001a}
 ${ELEMENT} .picker-menu.above{top:auto;bottom:calc(100% + 4px)}
 ${ELEMENT} .picker-menu[hidden]{display:none}
-${ELEMENT} .picker-option{display:block;width:100%;height:auto;min-height:32px;border:0;text-align:left;font-size:16px;line-height:24px;padding:4px 8px;background:transparent}
+${ELEMENT} .picker-option{display:block;width:100%;height:auto;min-height:32px;border:0;border-radius:4px;text-align:left;font-size:16px;line-height:24px;padding:4px 8px;background:transparent}
+${ELEMENT} .picker-option:hover{box-shadow:none}
 ${ELEMENT} .picker-option[aria-selected=true],${ELEMENT} .picker-option:hover{background:var(--ep-interactive-hover,#f3f4f6)}
-${ELEMENT} .row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+${ELEMENT} .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 ${ELEMENT} .hint{font-size:12px;line-height:1.5;color:var(--ep-foreground-muted,#64748b);margin:0 0 20px}
 ${ELEMENT} .error{font-size:12px;color:var(--ep-state-error,#b91c1c);margin:0 0 16px}
 ${ELEMENT} .actions{display:flex;flex-wrap:wrap;gap:8px;border-top:1px solid var(--ep-border-default,#cbd5e1);padding-top:16px}
