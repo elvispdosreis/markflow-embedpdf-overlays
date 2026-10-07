@@ -15,6 +15,7 @@ export interface CalibrationSidebarBridge {
 }
 let bridge: CalibrationSidebarBridge | null = null;
 const listeners = new Set<() => void>();
+let pickerSequence = 0;
 export function registerCalibrationSidebarBridge(value: CalibrationSidebarBridge): () => void {
   bridge = value;
   notifyCalibrationSidebar();
@@ -32,23 +33,32 @@ export function registerCalibrationSidebar(ui: UICapability): void {
 }
 
 const CSS = `
-${ELEMENT}{display:block;height:100%;min-height:0;color:var(--ep-color-fg-primary,#111827);font-size:14px}
+${ELEMENT}{display:block;height:100%;min-height:0;color:var(--ep-foreground-primary,#111827);font-family:var(--ep-font-family,inherit);font-size:14px}
 ${ELEMENT} *{box-sizing:border-box}
-${ELEMENT} main{height:100%;overflow-y:auto;padding:18px 16px;background:var(--ep-color-bg-surface,#fff)}
+${ELEMENT} main{height:100%;overflow-y:auto;padding:18px 16px;background:var(--ep-background-surface,#fff)}
 ${ELEMENT} h2{font-size:16px;font-weight:400;margin:0 0 20px}
 ${ELEMENT} section{margin:0 0 22px}
 ${ELEMENT} label{display:block;margin:0 0 8px;font-weight:400}
-${ELEMENT} select,${ELEMENT} input{width:100%;height:30px;padding:0 8px;border:1px solid var(--ep-color-border-default,#cbd5e1);border-radius:3px;background:var(--ep-color-bg-input,#fff);color:inherit;font:inherit}
-${ELEMENT} label :is(input,select){display:block;margin-top:8px}
-${ELEMENT} button{font:inherit;height:36px;padding:0 10px;border:1px solid var(--ep-color-border-default,#cbd5e1);border-radius:3px;background:var(--ep-color-bg-input,#fff);color:inherit;cursor:pointer}
-${ELEMENT} button:hover{background:var(--ep-color-bg-hover,#f3f4f6)}
-${ELEMENT} button[aria-pressed=true],${ELEMENT} button.primary{background:var(--ep-color-accent-primary,#3b82f6);border-color:var(--ep-color-accent-primary,#3b82f6);color:#fff}
+${ELEMENT} input{width:100%;height:30px;padding:0 8px;border:1px solid var(--ep-border-default,#cbd5e1);border-radius:4px;background:var(--ep-background-input,#fff);color:inherit;font:inherit}
+${ELEMENT} label input{display:block;margin-top:8px}
+${ELEMENT} button{font:inherit;height:36px;padding:4px 8px;border:1px solid var(--ep-border-default,#cbd5e1);border-radius:4px;background:var(--ep-background-input,#fff);color:inherit;cursor:pointer;transition:background-color .15s,border-color .15s}
+${ELEMENT} button:hover{background:var(--ep-interactive-hover,#f3f4f6)}
+${ELEMENT} button[aria-pressed=true],${ELEMENT} button.primary{background:var(--ep-accent-primary,#3b82f6);border-color:var(--ep-accent-primary,#3b82f6);color:var(--ep-foreground-on-accent,#fff)}
+${ELEMENT} button.primary:hover{background:var(--ep-accent-primary-hover,#2563eb);border-color:var(--ep-accent-primary-hover,#2563eb)}
 ${ELEMENT} button:disabled{opacity:.45;cursor:not-allowed}
-${ELEMENT} :is(input,select,button):focus-visible{outline:2px solid #3b82f6;outline-offset:2px}
+${ELEMENT} :is(input,button):focus-visible{outline:2px solid var(--ep-interactive-focus-ring,#3b82f6);outline-offset:2px}
+${ELEMENT} .picker{position:relative;width:100%}
+${ELEMENT} .picker-trigger{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;height:30px;text-align:left}
+${ELEMENT} .picker-trigger svg{width:16px;height:16px;color:var(--ep-foreground-secondary,#64748b);flex-shrink:0}
+${ELEMENT} .picker-menu{position:absolute;z-index:10;top:calc(100% + 4px);width:100%;max-height:240px;overflow-y:auto;padding:4px;border:1px solid var(--ep-border-default,#cbd5e1);border-radius:4px;background:var(--ep-background-elevated,#fff);box-shadow:0 10px 15px -3px #0000001a,0 4px 6px -4px #0000001a}
+${ELEMENT} .picker-menu.above{top:auto;bottom:calc(100% + 4px)}
+${ELEMENT} .picker-menu[hidden]{display:none}
+${ELEMENT} .picker-option{display:block;width:100%;height:auto;min-height:32px;border:0;text-align:left;font-size:16px;line-height:24px;padding:4px 8px;background:transparent}
+${ELEMENT} .picker-option[aria-selected=true],${ELEMENT} .picker-option:hover{background:var(--ep-interactive-hover,#f3f4f6)}
 ${ELEMENT} .row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-${ELEMENT} .hint{font-size:12px;line-height:1.5;color:var(--ep-color-fg-secondary,#64748b);margin:0 0 20px}
-${ELEMENT} .error{font-size:12px;color:var(--ep-color-danger,#b91c1c);margin:0 0 16px}
-${ELEMENT} .actions{display:flex;flex-wrap:wrap;gap:8px;border-top:1px solid var(--ep-color-border-default,#cbd5e1);padding-top:16px}
+${ELEMENT} .hint{font-size:12px;line-height:1.5;color:var(--ep-foreground-muted,#64748b);margin:0 0 20px}
+${ELEMENT} .error{font-size:12px;color:var(--ep-state-error,#b91c1c);margin:0 0 16px}
+${ELEMENT} .actions{display:flex;flex-wrap:wrap;gap:8px;border-top:1px solid var(--ep-border-default,#cbd5e1);padding-top:16px}
 `;
 
 function node<K extends keyof HTMLElementTagNameMap>(tag: K, text?: string): HTMLElementTagNameMap[K] {
@@ -63,11 +73,16 @@ function defineElement(): void {
     private idValue = '';
     private localBridge?: CalibrationSidebarBridge;
     private changed = () => this.renderPanel();
+    private closePicker?: () => void;
+    private outside = (event: PointerEvent) => {
+      if (!event.composedPath().some(value => value instanceof HTMLElement && value.classList.contains('picker'))) this.closePicker?.();
+    };
     set documentId(value: string) {this.idValue = value; this.renderPanel();}
     set panelBridge(value: CalibrationSidebarBridge) {this.localBridge = value; this.renderPanel();}
-    connectedCallback() {listeners.add(this.changed); this.renderPanel();}
-    disconnectedCallback() {listeners.delete(this.changed);}
+    connectedCallback() {listeners.add(this.changed); this.ownerDocument.addEventListener('pointerdown', this.outside, true); this.renderPanel();}
+    disconnectedCallback() {listeners.delete(this.changed); this.ownerDocument.removeEventListener('pointerdown', this.outside, true); this.closePicker = undefined;}
     private renderPanel() {
+      this.closePicker?.(); this.closePicker = undefined;
       const active = this.localBridge ?? bridge;
       if (!active || !this.idValue) {this.replaceChildren(); return;}
       const scroll = this.querySelector('main')?.scrollTop ?? 0;
@@ -90,11 +105,43 @@ function defineElement(): void {
       }
       modes.append(modeLabel, choices); root.append(modes);
       const select = (label: string, value: string | number, values: readonly {value: string | number; label: string}[], update: (value: string) => void) => {
-        const section = node('section'), caption = node('label', label), input = node('select');
-        input.setAttribute('aria-label', label);
-        for (const option of values) {const item = node('option', option.label); item.value = String(option.value); input.append(item);}
-        input.value = String(value); input.onchange = () => update(input.value);
-        caption.append(input); section.append(caption); root.append(section);
+        const section = node('section'), caption = node('label', label), picker = node('div'), input = node('button');
+        picker.className = 'picker'; input.className = 'picker-trigger'; input.type = 'button';
+        input.setAttribute('role', 'combobox'); input.setAttribute('aria-label', label);
+        input.setAttribute('aria-haspopup', 'listbox'); input.setAttribute('aria-expanded', 'false');
+        input.append(node('span', values.find(option => String(option.value) === String(value))?.label ?? String(value)));
+        const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); arrow.setAttribute('viewBox', '0 0 20 20'); arrow.setAttribute('fill', 'currentColor'); arrow.setAttribute('aria-hidden', 'true');
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path'); path.setAttribute('d', 'M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z'); arrow.append(path); input.append(arrow);
+        const menu = node('div'); menu.className = 'picker-menu'; menu.hidden = true; menu.setAttribute('role', 'listbox'); menu.setAttribute('aria-label', label);
+        menu.id = `markflow-calibration-options-${++pickerSequence}`; input.setAttribute('aria-controls', menu.id);
+        const options: HTMLButtonElement[] = [];
+        const close = () => {menu.hidden = true; input.setAttribute('aria-expanded', 'false');};
+        const open = () => {
+          this.closePicker?.(); this.closePicker = close; menu.hidden = false; input.setAttribute('aria-expanded', 'true');
+          const room = root.getBoundingClientRect().bottom - input.getBoundingClientRect().bottom;
+          menu.classList.toggle('above', room < Math.min(values.length * 32 + 10, 240));
+          (options.find(option => option.getAttribute('aria-selected') === 'true') ?? options[0])?.focus();
+        };
+        for (const option of values) {
+          const item = node('button', option.label); item.type = 'button'; item.className = 'picker-option'; item.setAttribute('role', 'option');
+          item.tabIndex = -1;
+          item.dataset['value'] = String(option.value); item.setAttribute('aria-selected', String(String(option.value) === String(value)));
+          item.onclick = () => {close(); input.focus(); update(String(option.value));}; options.push(item); menu.append(item);
+        }
+        input.onclick = () => menu.hidden ? open() : close();
+        picker.onkeydown = event => {
+          if (event.key === 'Escape' && !menu.hidden) {event.preventDefault(); event.stopPropagation(); close(); input.focus();}
+          else if (event.key === 'Tab') close();
+          else if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
+            event.preventDefault();
+            if (menu.hidden) {open(); return;}
+            const current = options.indexOf((this.getRootNode() as Document | ShadowRoot).activeElement as HTMLButtonElement);
+            const index = event.key === 'Home' ? 0 : event.key === 'End' ? options.length - 1 : (current + (event.key === 'ArrowDown' ? 1 : -1) + options.length) % options.length;
+            options[index]?.focus();
+          }
+        };
+        picker.addEventListener('focusout', event => {if (!picker.contains(event.relatedTarget as Node | null)) close();});
+        picker.append(input, menu); section.append(caption, picker); root.append(section);
         return section;
       };
       if (draft.mode === 'preset') {
