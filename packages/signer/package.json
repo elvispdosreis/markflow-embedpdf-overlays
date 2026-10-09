@@ -1,0 +1,30 @@
+{
+  "name": "@elvisreis/markflow-signer",
+  "version": "0.1.0",
+  "description": "Movable signature area and PDF signing coordinates for EmbedPDF, Angular, React and Vue",
+  "type": "module",
+  "files": ["dist", "README.md"],
+  "main": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {"types": "./dist/types/index.d.ts", "import": "./dist/index.js"},
+    "./react": {"types": "./dist/types/react.d.ts", "import": "./dist/react.js"},
+    "./vue": {"types": "./dist/types/vue.d.ts", "import": "./dist/vue.js"}
+  },
+  "scripts": {"build": "node scripts/build.mjs", "prepack": "node scripts/build.mjs"},
+  "dependencies": {"@elvisreis/markflow-core": "0.2.2"},
+  "peerDependencies": {
+    "@embedpdf/snippet": "2.15.0",
+    "@embedpdf/plugin-rotate": "2.15.0",
+    "@embedpdf/plugin-scroll": "2.15.0",
+    "@embedpdf/plugin-viewport": "2.15.0",
+    "@embedpdf/plugin-interaction-manager": "2.15.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "vue": "^3.5.0"
+  },
+  "peerDependenciesMeta": {"react": {"optional": true}, "vue": {"optional": true}},
+  "repository": {"type": "git", "url": "git+https://github.com/elvispdosreis/markflow-embedpdf-overlays.git", "directory": "packages/signer"},
+  "keywords": ["embedpdf", "markflow", "signature", "signerbox", "angular", "react", "vue"],
+  "license": "UNLICENSED",
+  "publishConfig": {"access": "public"}
+}

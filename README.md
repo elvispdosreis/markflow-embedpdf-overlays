@@ -12,6 +12,7 @@ Independent PDF tools for EmbedPDF 2.15.0, with native, React and Vue integratio
 
 ## Additional individual extensions
 
+- [MarkFlow Signer](packages/signer): `@elvisreis/markflow-signer` — signature placement for Angular, React and Vue (new local package, version 0.1.0).
 - [MarkFlow Zoom](packages/zoom): `@elvisreis/markflow-zoom`
 - [MarkFlow Context Menu](packages/context-menu): `@elvisreis/markflow-context-menu`
 - [MarkFlow Measurements](packages/measurements): `@elvisreis/markflow-measurements`

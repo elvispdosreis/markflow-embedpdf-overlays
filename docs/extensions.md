@@ -7,6 +7,7 @@ Each component is a separately installable package. The common runtime lives in 
 | [Crosshair](../packages/crosshair) | `@elvisreis/markflow-crosshair` | `mountCrosshair` |
 | [Rulers](../packages/rulers) | `@elvisreis/markflow-rulers` | `mountRulers` |
 | [Guides](../packages/guides) | `@elvisreis/markflow-guides` | `mountGuides` |
+| [Signer](../packages/signer) | `@elvisreis/markflow-signer` | `SignerState`, `mountSigner`, `mountSignerViewer` |
 | Zoom | `@elvisreis/markflow-zoom` | `mountViewerZoomControls` |
 | Context Menu | `@elvisreis/markflow-context-menu` | `mountViewerContextMenu` |
 | Measurements | `@elvisreis/markflow-measurements` | `MeasurementCalculator` |
@@ -205,3 +206,9 @@ Register after capabilities exist. Commands and schema remain owned by the viewe
 
 Implementation and exported interfaces:
 - [viewer-technical-comment-menu](../packages/core/src/features/viewer-extensions/viewer-technical-comment-menu.ts)
+
+## MarkFlow Signer
+
+New local package: `@elvisreis/markflow-signer@0.1.0`. It provides a built-in signature-area overlay with click placement, drag, resize and keyboard positioning. `SignerState.confirm(context)` returns page/position in the `StampCoordinates` contract and the full-precision PDF rectangle for a signing backend. No external SVG, annotation or cryptographic signing is involved.
+
+Native snippet API: `mountSignerViewer`. Headless page-layer API: `mountSigner`. Angular uses the registered `markflow-signer-viewer` or `markflow-signer` Web Components; `/react` and `/vue` export `MarkFlowSignerViewer` and `MarkFlowSigner`. See [integration and coordinate conventions](../packages/signer/README.md) and the [local demo](../examples/signer).

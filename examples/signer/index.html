@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MarkFlow Signer — demonstração</title>
+<style>
+  *{box-sizing:border-box}body{margin:0;background:#f4f5f7;color:#242a32;font:14px Arial,sans-serif}
+  main{max-width:1100px;margin:24px auto;padding:0 20px}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+  h1{font-size:24px;margin:0 0 6px}p{margin:0;color:#59616b}.viewer-frame{position:relative;height:640px;border:1px solid #d8dce1;background:white}
+  .viewer-frame{display:flex}.pdf-pane{position:relative;min-width:0;flex:1}#pdf-viewer{height:100%}#signature-overlay{position:absolute;inset:0;pointer-events:none}
+  .viewer-frame:fullscreen{height:100vh;width:100vw;border:0}
+  footer{display:flex;align-items:center;gap:12px;margin:16px 0}button{font:inherit;padding:10px 20px;border:1px solid #ccc;border-radius:24px;background:white;cursor:pointer}
+  #sign{margin-left:auto;background:#1351b4;color:white;border:0;font-weight:bold}button:disabled{opacity:.5;cursor:default}
+  pre{white-space:pre-wrap;padding:16px;background:white;border:1px solid #d8dce1;font-size:12px}
+  .reserved-field{display:flex;align-items:center;gap:12px;margin:16px 0;flex-wrap:wrap}.reserved-field input{font:inherit;padding:9px 12px;border:1px solid #ccc;border-radius:6px;width:180px}
+  input{max-width:220px}#filename{display:block;font-size:12px;color:#59616b;margin-top:6px;max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#status{font-size:13px} @media(max-width:700px){main{margin:16px auto;padding:0 10px}header{display:block}.viewer-frame{height:65vh}footer{flex-wrap:wrap}}
+</style>
+<main>
+  <header><div><h1>MarkFlow Signer</h1><p>Posicione a área de assinatura no documento.</p></div><label>Abrir PDF <input id="file" type="file" accept="application/pdf"><span id="filename">Documento de demonstração</span></label></header>
+  <div class="viewer-frame" id="signer-frame"><div class="pdf-pane"><div id="pdf-viewer"></div><div id="signature-overlay"></div></div></div>
+  <footer><span id="status" role="status">Carregando documento…</span><button id="toggle">Pausar posicionamento</button><button id="clear">Remover caixa</button><button id="test-position" disabled>Testar posição inicial</button><button id="sign" disabled>Confirmar posição</button></footer>
+  <div class="reserved-field"><label for="signature-field">ID da área reservada</label><input id="signature-field" value="elvisreis" placeholder="Ex.: elvisreis"><button id="reserved-position" disabled>Posicionar na área reservada</button></div>
+  <p>A assinatura também aparece na miniatura da página. Arraste a caixa ou sua miniatura para outra página e solte no local desejado. A assinatura acompanha a orientação da página de destino.</p>
+  <pre id="result" aria-live="polite">A confirmação exibirá as coordenadas para o serviço de assinatura digital.</pre>
+</main>
+<script type="module" src="./demo.js"></script>
+</html>
