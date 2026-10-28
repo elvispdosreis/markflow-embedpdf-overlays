@@ -4,6 +4,7 @@ import {PdfAnnotationSubtype, type PdfAnnotationObject} from '@embedpdf/models';
 import {createXfdf, parseXfdf, type XfdfCalibration} from './xfdf-export';
 import type {XfdfDocument} from './xfdf-coordinates';
 import {addTechnicalCommentPinAppearances} from './technical-comment-pdf';
+import {fixRotatedAppearances, needsRotatedAppearance} from './rotated-appearance';
 import {convertLegacyTechnicalComment, technicalCommentsFromAnnotations} from '../technical-comments/technical-comment.models';
 export interface DocumentTransferOptions {
   getAnnotation(): AnnotationCapability | undefined;
@@ -82,7 +83,9 @@ export class DocumentTransferController {
     const buffer = await this.exportApi.forDocument(documentId).saveAsCopy().toPromise();
     const annotations = this.annotationApi?.forDocument(documentId).getAnnotations().map(item => item.object) ?? [];
     const comments = technicalCommentsFromAnnotations(annotations);
-    return comments.length ? addTechnicalCommentPinAppearances(buffer, comments) : new Uint8Array(buffer);
+    const fixed = annotations.some(needsRotatedAppearance)
+      ? await fixRotatedAppearances(buffer, annotations) : new Uint8Array(buffer);
+    return comments.length ? addTechnicalCommentPinAppearances(fixed, comments) : fixed;
   }
   async importXfdf(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
