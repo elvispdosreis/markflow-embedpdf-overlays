@@ -1,6 +1,6 @@
 import type {AnnotationCapability} from '@embedpdf/plugin-annotation';
 import type {HistoryCapability} from '@embedpdf/plugin-history';
-import {PdfAnnotationSubtype, type PdfAnnotationObject, type PdfLineAnnoObject, type PdfPolylineAnnoObject} from '@embedpdf/models';
+import {calculateRotatedRectAABBAroundPoint, PdfAnnotationSubtype, type PdfAnnotationObject, type PdfLineAnnoObject, type PdfPolylineAnnoObject} from '@embedpdf/models';
 import {arcAnnotationPatch, arcDecorationIds, arcGeometryFromAnnotation, arcNeedsNormalization, buildArcDecorations} from './arc-measurement';
 import {buildDistanceDecorations, distanceDecorationIds, distanceLineNeedsDecoration, distanceLinePatch} from './distance-measurement';
 import {buildPerimeterMeasurementLabel, isPerimeterMeasurementAnnotation, perimeterMeasurementLabelIds, perimeterMeasurementNeedsLabel, perimeterMeasurementPatch} from './perimeter-measurement-label';
@@ -20,6 +20,8 @@ export interface MeasurementAppearanceOptions {
   onInvalidArc(): void;
   onSelectionRefresh(kind: 'distance' | 'arc'): void;
   onDistanceDeleted(annotationId: string): void;
+  /** Page rotation in quarter turns (0–3). Labels are turned so they read upright on screen. */
+  getPageRotation?(pageIndex: number): number;
 }
 
 /** Synchronizes measurement labels and decorations without depending on the host renderer. */
@@ -204,14 +206,27 @@ export class MeasurementAppearanceController {
     this.options.onDistanceDeleted(line.id);
   }
 
-  private upsertGeneratedAnnotation(annotation: PdfAnnotationObject): void {
+  private upsertGeneratedAnnotation(generated: PdfAnnotationObject): void {
     if (!this.annotationApi) return;
+    const annotation = this.uprightLabel(generated);
     if (this.annotationApi.getAnnotationById(annotation.id)) {
       this.annotationApi.updateAnnotation(annotation.pageIndex, annotation.id, annotation);
       this.purgeGeneratedAnnotationHistory(annotation.id);
     } else {
       this.annotationApi.importAnnotations([{annotation}]);
     }
+  }
+
+  /** Labels are built in page axes; on a rotated page they are turned back to read upright. */
+  private uprightLabel(annotation: PdfAnnotationObject): PdfAnnotationObject {
+    if (annotation.type !== PdfAnnotationSubtype.FREETEXT) return annotation;
+    const turn = ((Math.round(this.options.getPageRotation?.(annotation.pageIndex) ?? 0) % 4) + 4) % 4;
+    if (!turn) return annotation;
+    const rotation = (4 - turn) * 90;
+    const {rect} = annotation;
+    const center = {x: rect.origin.x + rect.size.width / 2, y: rect.origin.y + rect.size.height / 2};
+    return {...annotation, rotation, unrotatedRect: rect,
+      rect: calculateRotatedRectAABBAroundPoint(rect, rotation, center)};
   }
 
   private deleteGeneratedAnnotation(annotation: PdfAnnotationObject): void {

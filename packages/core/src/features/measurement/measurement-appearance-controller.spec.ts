@@ -68,6 +68,24 @@ describe('MeasurementAppearanceController', () => {
     expect(selected).toHaveBeenCalledWith('distance');
   });
 
+  it('turns labels upright on rotated pages without moving their center', () => {
+    controller = new MeasurementAppearanceController({
+      getAnnotation: () => api, getHistory: () => ({forDocument: historyScope} as unknown as HistoryCapability),
+      getActiveDocumentId: () => documentId, getCalibration: () => ({linearFactor: 1, unit: 'cm', precision: 1}),
+      onInvalidArc: invalid, onSelectionRefresh: selected, onDistanceDeleted: deleted, getPageRotation: () => 3
+    });
+    controller.syncDistanceAppearance(line, '100,00 m');
+    const label = objects.get(distanceDecorationIds(line.id).label)!;
+    const {unrotatedRect, rect} = label;
+    expect(label.rotation).toBe(90);
+    expect(unrotatedRect!.size.width).toBeGreaterThan(unrotatedRect!.size.height);
+    expect(rect.size.width).toBeCloseTo(unrotatedRect!.size.height, 6);
+    expect(rect.size.height).toBeCloseTo(unrotatedRect!.size.width, 6);
+    const center = (value: typeof rect) => [value.origin.x + value.size.width / 2, value.origin.y + value.size.height / 2];
+    center(rect).forEach((value, index) => expect(value).toBeCloseTo(center(unrotatedRect!)[index], 6));
+    expect(objects.get(distanceDecorationIds(line.id).startWitness)?.rotation).toBeUndefined();
+  });
+
   it('updates existing decorations and purges only their annotation history in the current document', () => {
     controller.syncDistanceAppearance(line, '100,00 m');
     documentId = 'b';
