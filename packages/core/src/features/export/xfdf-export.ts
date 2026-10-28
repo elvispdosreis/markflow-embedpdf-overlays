@@ -4,12 +4,14 @@ import {
   PdfAnnotationName,
   PdfAnnotationSubtype,
   type PdfAnnotationObject,
+  type PdfFreeTextAnnoObject,
   type PdfInkAnnoObject,
   type PdfLineAnnoObject,
   type PdfPolygonAnnoObject,
   type PdfPolylineAnnoObject,
   type PdfSupportedAnnoObject
 } from '@embedpdf/snippet';
+import {PdfStandardFont} from '@embedpdf/models';
 import {
   arcControlPoints,
   arcThroughVertexIndex,
@@ -59,6 +61,34 @@ const LINE_ENDINGS: Record<PdfAnnotationLineEnding, string> = {
   [PdfAnnotationLineEnding.Unknown]: 'None'
 };
 
+const JUSTIFICATIONS = ['left', 'centered', 'right'];
+const TEXT_ALIGNS = ['left', 'center', 'right'];
+const VERTICAL_ALIGNS = ['top', 'middle', 'bottom'];
+
+/** PostScript names of the PDF standard fonts, as written in /DA. */
+const STANDARD_FONT_NAMES: Partial<Record<PdfStandardFont, string>> = {
+  [PdfStandardFont.Courier]: 'Courier',
+  [PdfStandardFont.Courier_Bold]: 'Courier-Bold',
+  [PdfStandardFont.Courier_BoldOblique]: 'Courier-BoldOblique',
+  [PdfStandardFont.Courier_Oblique]: 'Courier-Oblique',
+  [PdfStandardFont.Helvetica]: 'Helvetica',
+  [PdfStandardFont.Helvetica_Bold]: 'Helvetica-Bold',
+  [PdfStandardFont.Helvetica_BoldOblique]: 'Helvetica-BoldOblique',
+  [PdfStandardFont.Helvetica_Oblique]: 'Helvetica-Oblique',
+  [PdfStandardFont.Times_Roman]: 'Times-Roman',
+  [PdfStandardFont.Times_Bold]: 'Times-Bold',
+  [PdfStandardFont.Times_BoldItalic]: 'Times-BoldItalic',
+  [PdfStandardFont.Times_Italic]: 'Times-Italic',
+  [PdfStandardFont.Symbol]: 'Symbol',
+  [PdfStandardFont.ZapfDingbats]: 'ZapfDingbats'
+};
+/** Common /DA resource aliases (Acrobat form defaults). */
+const FONT_ALIASES: Record<string, PdfStandardFont> = {
+  Helv: PdfStandardFont.Helvetica, HeBo: PdfStandardFont.Helvetica_Bold, Cour: PdfStandardFont.Courier,
+  CoBo: PdfStandardFont.Courier_Bold, TiRo: PdfStandardFont.Times_Roman, TiBo: PdfStandardFont.Times_Bold,
+  ZaDb: PdfStandardFont.ZapfDingbats, Symb: PdfStandardFont.Symbol
+};
+
 export function createXfdf(annotations: PdfAnnotationObject[], options: XfdfExportOptions = {}): string {
   const serializedAnnotations = annotations
     .filter(annotation => !isDistanceDecoration(annotation))
@@ -89,7 +119,7 @@ export function parseXfdf(source: string, options: {document?: XfdfDocument; ori
   }
   const annotations = annots
     ? Array.from(annots.children)
-        .map((element, index) => parseAnnotation(detectedSource === 'native' ? element : adaptApryseAnnotation(element), index))
+        .map((element, index) => parseAnnotation(detectedSource === 'native' ? element : adaptApryseAnnotation(element), index, detectedSource))
         .filter((annotation): annotation is PdfAnnotationObject => annotation !== null)
         .map(annotation => {
           if (detectedSource === 'native') {
@@ -161,11 +191,15 @@ function serializeAnnotation(annotation: PdfAnnotationObject): string | null {
         .join('')}</inklist>`;
       break;
     case PdfAnnotationSubtype.FREETEXT: {
+      // TextColor/FontSize/justification and the appearance strings are what
+      // Apryse/PDFTron and Acrobat read; text-align/vertical-align stay for MarkFlow.
       attributes.push(attribute('font', String(annotation.fontFamily)));
-      attributes.push(attribute('size', formatNumber(annotation.fontSize)));
-      attributes.push(attribute('text-color', annotation.fontColor));
+      attributes.push(attribute('FontSize', formatNumber(annotation.fontSize)));
+      attributes.push(attribute('TextColor', annotation.fontColor));
+      attributes.push(attribute('justification', JUSTIFICATIONS[annotation.textAlign]));
       attributes.push(attribute('text-align', annotation.textAlign));
       attributes.push(attribute('vertical-align', annotation.verticalAlign));
+      attributes.push(attribute('markflow:border-color', annotation.strokeColor || 'transparent'));
       if (annotation.rectangleDifferences) {
         const rd = annotation.rectangleDifferences;
         attributes.push(attribute('fringe', [rd.left, rd.bottom, rd.right, rd.top].map(formatNumber).join(',')));
@@ -174,7 +208,8 @@ function serializeAnnotation(annotation: PdfAnnotationObject): string | null {
         attributes.push(attribute('callout', annotation.calloutLine.map(point).join(',')));
         attributes.push(attribute('head', LINE_ENDINGS[annotation.lineEnding ?? PdfAnnotationLineEnding.None]));
       }
-      if (annotation.defaultStyle) body += `<defaultstyle>${escapeXml(annotation.defaultStyle)}</defaultstyle>`;
+      body += `<defaultappearance>${escapeXml(freeTextAppearance(annotation))}</defaultappearance>`;
+      body += `<defaultstyle>${escapeXml(freeTextStyle(annotation))}</defaultstyle>`;
       break;
     }
   }
@@ -206,7 +241,7 @@ function parseTextIcon(value: string | null): PdfAnnotationName {
   return PdfAnnotationName.Comment;
 }
 
-function parseAnnotation(element: Element, index: number): PdfAnnotationObject | null {
+function parseAnnotation(element: Element, index: number, source: XfdfSource = 'native'): PdfAnnotationObject | null {
   const rect = parseRectangle(element.getAttribute('rect'));
   const common = {
     id: element.getAttribute('name') || `xfdf-${index + 1}`,
@@ -271,14 +306,36 @@ function parseAnnotation(element: Element, index: number): PdfAnnotationObject |
       // XFDF fringe uses PDF edge order: left, bottom, right, top.
       const fringe = element.getAttribute('fringe')?.split(',').map(Number);
       const callout = element.getAttribute('callout')?.split(',').map(Number);
+      const appearance = parseAppearance(childText(element, 'defaultappearance'));
+      const styleColor = cssColor(defaultStyle?.match(/(?:^|;)\s*color\s*:\s*([^;]+)/i)?.[1]);
+      const styleSize = Number(defaultStyle?.match(/(?:^|;)\s*font\s*:[^;]*?([\d.]+)pt/i)?.[1]);
+      const xfdfColor = element.getAttribute('color');
+      const borderColor = cadAttribute(element, 'border-color');
+      // Older MarkFlow/RLZ exports (and files with interior-color) used `color`
+      // as the border; current exports and Apryse/Acrobat use it as background.
+      const legacyColors = !borderColor && (source === 'native' || element.hasAttribute('interior-color'));
+      const textColor = element.getAttribute('TextColor') || element.getAttribute('text-color')
+        || appearance.textColor || styleColor;
+      const colors = legacyColors
+        ? {strokeColor: common.strokeColor, color: common.color, fontColor: textColor || common.strokeColor}
+        : {color: xfdfColor || 'transparent', fontColor: textColor || '#000000',
+            strokeColor: borderColor || appearance.borderColor || textColor || '#000000'};
+      const justification = ['left', 'centered', 'right'].indexOf(element.getAttribute('justification') || '');
+      // EmbedPDF drops the text of a FreeText whose border is 'transparent' when
+      // it writes the PDF, so a missing border must stay undefined.
+      const border = visibleColor(colors.strokeColor);
       return {
         ...common,
+        ...colors,
+        strokeColor: border,
+        strokeWidth: border ? common.strokeWidth : 0,
         type: PdfAnnotationSubtype.FREETEXT,
         contents: common.contents || '',
-        fontFamily: parseInteger(element.getAttribute('font'), 4),
-        fontSize: parseNumber(element.getAttribute('FontSize') || element.getAttribute('size'), 10),
-        fontColor: element.getAttribute('TextColor') || element.getAttribute('text-color') || common.strokeColor,
-        textAlign: parseInteger(element.getAttribute('text-align'), alignment('text-align', ['left', 'center', 'right'], 1)),
+        fontFamily: parseInteger(element.getAttribute('font'), appearance.fontFamily ?? PdfStandardFont.Helvetica),
+        fontSize: parseNumber(element.getAttribute('FontSize') || element.getAttribute('size'),
+          appearance.fontSize ?? (Number.isFinite(styleSize) && styleSize > 0 ? styleSize : 10)),
+        textAlign: parseInteger(element.getAttribute('text-align'),
+          justification >= 0 ? justification : alignment('text-align', ['left', 'center', 'right'], 1)),
         verticalAlign: parseInteger(element.getAttribute('vertical-align'), alignment('text-vertical-align', ['top', 'middle', 'bottom'], 1)),
         defaultStyle,
         ...(fringe?.length === 4 && fringe.every(Number.isFinite) ? {
@@ -355,7 +412,10 @@ function commonAttributes(annotation: PdfAnnotationObject): string[] {
     strokeColor?: string;
     strokeWidth?: number;
   };
-  const color = style.strokeColor || style.color;
+  // FreeText /C is the box background; its border goes in the appearance string.
+  const freeText = annotation.type === PdfAnnotationSubtype.FREETEXT;
+  const color = freeText ? visibleColor(style.color) : style.strokeColor || style.color;
+  const width = freeText && !visibleColor(style.strokeColor) ? 0 : style.strokeWidth;
   const attributes = [
     attribute('page', annotation.pageIndex),
     attribute('rect', rectangle(annotation.rect)),
@@ -365,7 +425,7 @@ function commonAttributes(annotation: PdfAnnotationObject): string[] {
     attribute('intent', annotation.intent),
     attribute('color', color),
     attribute('opacity', style.opacity),
-    attribute('width', style.strokeWidth),
+    attribute('width', width),
     ...('strokeStyle' in annotation && annotation.strokeStyle === PdfAnnotationBorderStyle.DASHED
       ? [attribute('style', 'dash'), attribute('dashes', annotation.strokeDashArray?.join(','))] : []),
     attribute('rotation', annotation.rotation),
@@ -382,7 +442,7 @@ function commonAttributes(annotation: PdfAnnotationObject): string[] {
     attributes.push(attribute('icon', PdfAnnotationName[annotation.name] ?? 'Comment'));
   }
 
-  if (style.color && style.color !== 'transparent') {
+  if (!freeText && style.color && style.color !== 'transparent') {
     attributes.push(attribute('interior-color', style.color));
   }
   // Preserve imported per-annotation calibration in the native CAD format.
@@ -606,6 +666,87 @@ function optionalNumber(value: string | null): number | undefined {
 
 function measurementUnit(value: string | null): MeasurementUnit | undefined {
   return ['mm', 'cm', 'm', 'km', 'in', 'ft', 'yd', 'mi', 'pt'].includes(value || '') ? value as MeasurementUnit : undefined;
+}
+
+function visibleColor(value: string | undefined): string | undefined {
+  return value && value !== 'transparent' ? value : undefined;
+}
+
+/** /DA: optional border (RG), text color (rg) and font. */
+function freeTextAppearance(annotation: PdfFreeTextAnnoObject): string {
+  const border = annotation.strokeWidth && visibleColor(annotation.strokeColor) ? rgbOperands(annotation.strokeColor) : undefined;
+  const text = rgbOperands(annotation.fontColor);
+  return [
+    border ? `${border} RG` : '',
+    text ? `${text} rg` : '',
+    `/${fontName(annotation.fontFamily)} ${formatNumber(annotation.fontSize)} Tf`
+  ].filter(Boolean).join(' ');
+}
+
+/** /DS: rebuilt from the current style; unrelated imported properties are kept. */
+function freeTextStyle(annotation: PdfFreeTextAnnoObject): string {
+  const name = fontName(annotation.fontFamily);
+  const owned = /^(font|font-family|font-size|font-weight|font-style|color|text-align|text-vertical-align)$/i;
+  const kept = (annotation.defaultStyle ?? '').split(';').map(part => part.trim())
+    .filter(part => part.includes(':') && !owned.test(part.split(':')[0].trim()));
+  return [
+    `font: ${name.split('-')[0]} ${formatNumber(annotation.fontSize)}pt`,
+    /Bold/.test(name) ? 'font-weight: bold' : '',
+    /Oblique|Italic/.test(name) ? 'font-style: italic' : '',
+    `text-align: ${TEXT_ALIGNS[annotation.textAlign] ?? 'left'}`,
+    `text-vertical-align: ${VERTICAL_ALIGNS[annotation.verticalAlign] ?? 'top'}`,
+    `color: ${annotation.fontColor}`,
+    ...kept
+  ].filter(Boolean).join('; ');
+}
+
+function fontName(font: PdfStandardFont): string {
+  return STANDARD_FONT_NAMES[font] ?? 'Helvetica';
+}
+
+function parseAppearance(value: string | undefined): {
+  textColor?: string; borderColor?: string; fontFamily?: PdfStandardFont; fontSize?: number;
+} {
+  if (!value) return {};
+  const color = (operator: string) => {
+    const rgb = value.match(new RegExp(`([\\d.]+)\\s+([\\d.]+)\\s+([\\d.]+)\\s+${operator}(?![\\w])`));
+    if (rgb) return rgbHex(rgb.slice(1, 4).map(Number));
+    const gray = value.match(new RegExp(`(?:^|\\s)([\\d.]+)\\s+${operator === 'rg' ? 'g' : 'G'}(?![\\w])`));
+    return gray ? rgbHex([Number(gray[1]), Number(gray[1]), Number(gray[1])]) : undefined;
+  };
+  const font = value.match(/\/([^\s/]+)\s+([\d.]+)\s+Tf/);
+  const name = font?.[1];
+  const family = name === undefined ? undefined : FONT_ALIASES[name]
+    ?? (Object.entries(STANDARD_FONT_NAMES).find(([, standard]) => standard === name)?.[0]);
+  const size = Number(font?.[2]);
+  return {
+    textColor: color('rg'),
+    borderColor: color('RG'),
+    fontFamily: family === undefined ? undefined : Number(family) as PdfStandardFont,
+    fontSize: Number.isFinite(size) && size > 0 ? size : undefined
+  };
+}
+
+/** Hex (#RGB/#RRGGBB) to PDF RGB operands; undefined when not a hex color. */
+function rgbOperands(value: string | undefined): string | undefined {
+  const hex = value?.trim().match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i)?.[1];
+  if (!hex) return undefined;
+  const full = hex.length === 3 ? hex.split('').map(digit => digit + digit).join('') : hex;
+  return [0, 2, 4].map(offset => formatNumber(parseInt(full.slice(offset, offset + 2), 16) / 255)).join(' ');
+}
+
+function rgbHex(channels: number[]): string | undefined {
+  if (channels.length !== 3 || !channels.every(channel => Number.isFinite(channel) && channel >= 0 && channel <= 1)) return undefined;
+  return `#${channels.map(channel => Math.round(channel * 255).toString(16).padStart(2, '0')).join('').toUpperCase()}`;
+}
+
+/** CSS color from /DS: #hex or rgb(r,g,b) with 0-255 channels. */
+function cssColor(value: string | undefined): string | undefined {
+  const color = value?.trim();
+  if (!color) return undefined;
+  if (/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(color)) return color.toUpperCase();
+  const rgb = color.match(/^rgb\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*\)$/i);
+  return rgb ? rgbHex(rgb.slice(1, 4).map(channel => Number(channel) / 255)) : undefined;
 }
 
 function formatNumber(value: number): string {
