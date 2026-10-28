@@ -1,6 +1,6 @@
 {
   "name": "@elvisreis/markflow-calibration",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Preset and custom scales, units, precision, imported calibration and recalculated results",
   "type": "module",
   "files": [
@@ -20,7 +20,7 @@
     "prepack": "node scripts/build.mjs"
   },
   "dependencies": {
-    "@elvisreis/markflow-core": "0.2.2"
+    "@elvisreis/markflow-core": "0.2.3"
   },
   "peerDependencies": {
     "preact": "^10.26.4",

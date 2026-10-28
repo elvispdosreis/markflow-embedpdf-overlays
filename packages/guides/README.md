@@ -5,7 +5,7 @@ An independent guides extension for EmbedPDF 2.15.0, with native, React and Vue 
 ## Install
 
 ```sh
-npm install @elvisreis/markflow-guides@0.2.2
+npm install @elvisreis/markflow-guides@0.2.3
 ```
 
 ## React

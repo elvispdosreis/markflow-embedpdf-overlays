@@ -2,12 +2,12 @@
 
 Preset and custom scales, units, precision, imported calibration and recalculated results.
 
-Package: `@elvisreis/markflow-calibration`, version 0.3.0. Source and release notes are available on GitHub. No license has been granted yet.
+Package: `@elvisreis/markflow-calibration`, version 0.3.1. Source and release notes are available on GitHub. No license has been granted yet.
 
 ## Install
 
 ```sh
-npm install @elvisreis/markflow-calibration@0.3.0
+npm install @elvisreis/markflow-calibration@0.3.1
 ```
 
 ## Public API
@@ -36,7 +36,7 @@ Open the panel through `ui.forDocument(documentId).setActiveSidebar('left', 'mai
 Notify the sidebar after external/imported state changes.
 
 The controls follow the native annotation-style panel. The package retains all
-previous headless exports and the shared `markflow-core@0.2.2` runtime.
+previous headless exports and the shared `markflow-core@0.2.3` runtime.
 
 ## React / Vue
 

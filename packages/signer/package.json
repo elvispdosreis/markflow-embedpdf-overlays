@@ -12,7 +12,7 @@
     "./vue": {"types": "./dist/types/vue.d.ts", "import": "./dist/vue.js"}
   },
   "scripts": {"build": "node scripts/build.mjs", "prepack": "node scripts/build.mjs"},
-  "dependencies": {"@elvisreis/markflow-core": "0.2.2"},
+  "dependencies": {"@elvisreis/markflow-core": "0.2.3"},
   "peerDependencies": {
     "@embedpdf/snippet": "2.15.0",
     "@embedpdf/plugin-rotate": "2.15.0",
